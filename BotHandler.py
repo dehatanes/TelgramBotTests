@@ -1,4 +1,5 @@
 import requests
+import json
 from bottle import Bottle, response, request as bottle_request
 from UserModel import User
 
@@ -23,20 +24,15 @@ class BotHandler(Bottle):
     def send_message_to_specific_person(self, chat_id, text):
         # setup
         method = self.send_message_endpoint
+        keyboard = {"inline_keyboard": [[
+                        { "text": "botão A",
+                          "callback_data": "button-A-pressed"}, 
+                        { "text": "botão B",
+                          "callback_data": "button-B-pressed"}]]}
+
         params = {'chat_id': chat_id,
                   'text': text,
-                  'reply_markup':{
-                        "inline_keyboard": [
-                                [{
-                                    "text": "botão A",
-                                    "callback_data": "button-A-pressed"            
-                                    }, 
-                                    {
-                                    "text": "botão B",
-                                    "callback_data": "button-B-pressed"            
-                                }]
-                            ]
-                    }}
+                  'reply_markup': json.dumps(keyboard)}
         # request
         resp = requests.get(self.api_base_url + method, params).json()
         if(resp.get("ok")):
