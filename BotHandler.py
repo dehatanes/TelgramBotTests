@@ -14,6 +14,7 @@ class BotHandler(Bottle):
     # METHODS
     def __init__(self, token):
         # Setup
+        super(BotHandler, self).__init__()
         self.token = token
         self.api_base_url = self.api_base_url.format(token)
         # Handle conversation

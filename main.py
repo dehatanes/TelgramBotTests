@@ -1,4 +1,5 @@
 import sys, getopt
+from bottle import Bottle, response, request as bottle_request
 from BotHandler import BotHandler
 
 if __name__ == '__main__':
