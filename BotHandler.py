@@ -53,6 +53,11 @@ class BotHandler(Bottle):
         update = bottle_request.json
         print("\n\nNEW UPDATE\n{}\n\n".format(update)) #just for log
 
+        if(update.get("callback_query").get("data")): #handle button click
+            user_id = update.get("callback_query").get("from").get("id")
+            self.send_message_to_specific_person(user_id, update.get("callback_query").get("data"))
+            return
+
         user_id = update.get("message").get("from").get("id")
         user = self.users_list.get(user_id)
         if(user):
