@@ -24,7 +24,19 @@ class BotHandler(Bottle):
         # setup
         method = self.send_message_endpoint
         params = {'chat_id': chat_id,
-                  'text': text}
+                  'text': text,
+                  'reply_markup':{
+                        "inline_keyboard": [
+                                [{
+                                    "text": "botão A",
+                                    "callback_data": "button-A-pressed"            
+                                    }, 
+                                    {
+                                    "text": "botão B",
+                                    "callback_data": "button-B-pressed"            
+                                }]
+                            ]
+                    }}
         # request
         resp = requests.get(self.api_base_url + method, params).json()
         if(resp.get("ok")):
