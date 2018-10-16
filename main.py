@@ -1,5 +1,4 @@
-import sys, getopt
-from bottle import Bottle, response, request as bottle_request
+import sys, getopt, os
 from BotHandler import BotHandler
 
 if __name__ == '__main__':
