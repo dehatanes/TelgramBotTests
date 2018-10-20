@@ -5,14 +5,11 @@ if __name__ == '__main__':
     #-----------
     # SETUP
     #-----------    
-    try:
-        opts, args = getopt.getopt(sys.argv[1:],"",longopts=["token"]) # parametrizar o webhook depois
-        bot_token = args[0]            # <-- Token recebido por parâmetro ao iniciar o app
-                                       #     conseguido através do botFather no telegram
-    except getopt.GetoptError:
+    bot_token = os.environ.get("TOKEN")          # <-- Token nas variavais de ambiente do Heroku
+    if(!bot_token):
         print()
-        print('Wrong usage!')
-        print("Use the parameter --token <BOT_TOKEN> to run.")
+        print('SETUP FAIL!')
+        print("Please set the TOKEN config. var. with the bot token.")
         print()
         sys.exit()
 
