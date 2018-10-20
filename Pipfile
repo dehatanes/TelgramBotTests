@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 requests = "*"
 bottle = "*"
+apscheduler = "*"
 
 [dev-packages]
 

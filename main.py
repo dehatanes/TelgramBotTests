@@ -6,7 +6,7 @@ if __name__ == '__main__':
     # SETUP
     #-----------    
     bot_token = os.environ.get("TOKEN")          # <-- Token nas variavais de ambiente do Heroku
-    if(!bot_token):
+    if(not bot_token):
         print()
         print('SETUP FAIL!')
         print("Please set the TOKEN config. var. with the bot token.")
