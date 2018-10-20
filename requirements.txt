@@ -4,3 +4,4 @@ python-telegram-bot==11.1.0
 python-dateutil==2.7.3
 pipenv==2018.7.1
 bottle==0.12.8
+APScheduler==3.0.0
