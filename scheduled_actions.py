@@ -2,6 +2,9 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import sys, getopt, os
 import requests
 
+sched = BlockingScheduler()
+
+@sched.scheduled_job('interval', minutes=5)
 def timed_job():
 	bot_token = os.environ.get("TOKEN")          # <-- Token nas variavais de ambiente do Heroku
 	if(bot_token):
@@ -10,9 +13,5 @@ def timed_job():
 				  'text': "I am still alive :)"}
 		requests.get(bot_send_message, params)
 
-sched = BlockingScheduler()
-
-sched.add_job(timed_job)
-sched.add_job(timed_job, 'interval', minutes=5)
 
 sched.start()
