@@ -1,5 +1,6 @@
 import sys, getopt, os
 from BotHandler import BotHandler
+import scheduled_actions
 
 if __name__ == '__main__':
     #-----------
