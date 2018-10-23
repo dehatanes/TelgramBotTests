@@ -4,6 +4,15 @@ from bottle import Bottle, response, request as bottle_request
 from UserModel import User
 
 class BotHandler(Bottle):
+    #----------------
+    # API ENDPOINTS
+    #----------------
+    ROOT_ENDPOINT                      = "/"
+    SEND_MESSAGE_TO_BOT_USERS_ENDPOINT = "/{0}/send-message".format(os.environ.get("TOKEN"))
+    HANDLE_RECEIVED_MESSAGE_ENDPOINT   = "/{0}/received-message".format(os.environ.get("TOKEN"))
+    RUN_SCHEDULED_SCRIPT_ENDPOINT      = "/{0}/scheduled-script".format(os.environ.get("TOKEN"))
+    GET_DATABASE_ENDPOINT              = "/get-database"
+
     # Telegram API constants
     api_base_url          = "https://api.telegram.org/bot{0}/" # {0} = bot_token
     get_updates_endpoint  = "getUpdates"   # no params
@@ -19,7 +28,16 @@ class BotHandler(Bottle):
         self.token = token
         self.api_base_url = self.api_base_url.format(token)
         # Handle conversation
-        self.route('/', callback=self.handle_updates, method="POST")
+        self.route(self.ROOT, callback=self.handle_updates, method="POST")
+        self.route(self.RUN_SCHEDULED_SCRIPT_ENDPOINT, callback=self.send_message_to_all_users, method="POST")
+        self.route(self.GET_DATABASE_ENDPOINT, callback=self.return_database, method="POST")
+
+    def send_message_to_all_users():
+        for userid in self.users_list:
+            self.send_message_to_specific_person(userid,"messaging everybody")
+
+    def send_message_to_all_users():
+        return self.users_list
 
     def send_message_to_specific_person(self, chat_id, text):
         # setup
