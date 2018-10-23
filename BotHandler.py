@@ -29,7 +29,7 @@ class BotHandler(Bottle):
         self.token = token
         self.api_base_url = self.api_base_url.format(token)
         # Handle conversation
-        self.route(self.ROOT, callback=self.handle_updates, method="POST")
+        self.route(self.ROOT_ENDPOINT, callback=self.handle_updates, method="POST")
         self.route(self.RUN_SCHEDULED_SCRIPT_ENDPOINT, callback=self.send_message_to_all_users, method="POST")
         self.route(self.GET_DATABASE_ENDPOINT, callback=self.return_database, method="GET")
 
