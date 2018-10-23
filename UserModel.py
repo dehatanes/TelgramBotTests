@@ -1,3 +1,5 @@
+import json
+
 class User:
     greeted = False
     received_inicial_message = False
