@@ -40,7 +40,7 @@ class BotHandler(Bottle):
     def return_database(self):
         reponse = {}
         for userid, user_model in self.users_list.items():
-            response[userid] = user_model.toJson()
+            response[userid] = user_model.toJSON()
         return reponse
 
     def send_message_to_specific_person(self, chat_id, text):
