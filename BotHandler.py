@@ -38,7 +38,10 @@ class BotHandler(Bottle):
             self.send_message_to_specific_person(userid,"messaging everybody")
 
     def return_database(self):
-        return self.users_list
+        reponse = {}
+        for userid, user_model in self.users_list.items():
+            response[userid] = user_model.toJson()
+        return reponse
 
     def send_message_to_specific_person(self, chat_id, text):
         # setup
