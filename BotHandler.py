@@ -1,3 +1,4 @@
+import sys, getopt, os
 import requests
 import json
 from bottle import Bottle, response, request as bottle_request
@@ -30,7 +31,7 @@ class BotHandler(Bottle):
         # Handle conversation
         self.route(self.ROOT, callback=self.handle_updates, method="POST")
         self.route(self.RUN_SCHEDULED_SCRIPT_ENDPOINT, callback=self.send_message_to_all_users, method="POST")
-        self.route(self.GET_DATABASE_ENDPOINT, callback=self.return_database, method="POST")
+        self.route(self.GET_DATABASE_ENDPOINT, callback=self.return_database, method="GET")
 
     def send_message_to_all_users():
         for userid in self.users_list:
