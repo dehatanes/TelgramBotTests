@@ -33,11 +33,11 @@ class BotHandler(Bottle):
         self.route(self.RUN_SCHEDULED_SCRIPT_ENDPOINT, callback=self.send_message_to_all_users, method="POST")
         self.route(self.GET_DATABASE_ENDPOINT, callback=self.return_database, method="GET")
 
-    def send_message_to_all_users():
+    def send_message_to_all_users(self):
         for userid in self.users_list:
             self.send_message_to_specific_person(userid,"messaging everybody")
 
-    def return_database():
+    def return_database(self):
         return self.users_list
 
     def send_message_to_specific_person(self, chat_id, text):
