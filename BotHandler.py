@@ -12,7 +12,7 @@ class BotHandler(Bottle):
     ROOT_ENDPOINT                      = "/"
     SEND_MESSAGE_TO_BOT_USERS_ENDPOINT = "/{0}/send-message".format(os.environ.get("TOKEN"))
     HANDLE_RECEIVED_MESSAGE_ENDPOINT   = "/{0}/received-message".format(os.environ.get("TOKEN"))
-    RUN_SCHEDULED_SCRIPT_ENDPOINT      = "/{0}/scheduled-script".format(os.environ.get("TOKEN"))
+    RUN_SCHEDULED_SCRIPT_ENDPOINT      = "/scheduled-script"
     GET_DATABASE_ENDPOINT              = "/get-database"
 
     # Telegram API constants
@@ -35,8 +35,9 @@ class BotHandler(Bottle):
         self.route(self.GET_DATABASE_ENDPOINT, callback=self.return_database, method="GET")
 
     def send_message_to_all_users(self):
-        for userid in self.users_list:
-            self.send_message_to_specific_person(userid,"messaging everybody")
+        users = MongoDB.getAllUsers()
+        for userid in users:
+            self.send_message_to_specific_person(userid,"messaging everybody. I AM ALIVE!")
 
     def return_database(self):
         resp = MongoDB.getAllData()
