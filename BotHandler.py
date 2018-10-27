@@ -35,10 +35,12 @@ class BotHandler(Bottle):
         self.route(self.GET_DATABASE_ENDPOINT, callback=self.return_database, method="GET")
 
     def send_message_to_all_users(self):
-        users = MongoDB.getAllUsers()
+        users = MongoDB.getAlluserIds()
         for userid in users:
             print("messaging user {0}".format(userid))
             self.send_message_to_specific_person(userid,"messaging everybody. I AM ALIVE!")
+        response.headers['Content-Type'] = 'application/json'
+        return {"Status":"Ok", "users_messaged":users}
 
     def return_database(self):
         resp = MongoDB.getAllData()
