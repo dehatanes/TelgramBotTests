@@ -51,8 +51,9 @@ class BotHandler(Bottle):
         keyboard = {"inline_keyboard": [[
                         { "text": "botão A",
                           "callback_data": "button-A-pressed"}, 
-                        { "text": "botão B",
-                          "callback_data": "button-B-pressed"}]]}
+                        { "text": "google.com",
+                          "url":"https://www.google.com.br/",
+                          "callback_data": "google.com-pressed"}]]}
 
         params = {'chat_id': chat_id,
                   'text': text,
