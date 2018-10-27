@@ -3,6 +3,7 @@ import requests
 import json
 from bottle import Bottle, response, request as bottle_request
 from UserModel import User
+from DatabaseUtils import MongoDB
 
 class BotHandler(Bottle):
     #----------------
@@ -38,10 +39,7 @@ class BotHandler(Bottle):
             self.send_message_to_specific_person(userid,"messaging everybody")
 
     def return_database(self):
-        resp = {}
-        for userid, user_model in self.users_list.items():
-            resp[userid] = user_model.toJSON()
-        # return 200 Success
+        resp = MongoDB.getAllData()
         response.headers['Content-Type'] = 'application/json'
         return json.dumps(resp)
 
@@ -115,7 +113,8 @@ class BotHandler(Bottle):
             else:
                 self.send_message_to_specific_person(user_id, "A partir daqui eu ainda nao sei o que fazer hehehe desculpa")
         else:
-            # setup user
+            # setup users
+            MongoDB.insertNewUser(update.get("message").get("from"))
             first_name = update.get("message").get("from").get("first_name")
             last_name  = update.get("message").get("from").get("last_name")
             username   = update.get("message").get("from").get("username")
