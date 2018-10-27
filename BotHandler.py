@@ -96,9 +96,10 @@ class BotHandler(Bottle):
         print("\n\nNEW UPDATE\n{}\n\n".format(update)) #just for log
 
         if(update.get("callback_query")): #handle button click
+            requests.get(self.api_base_url + "answerCallbackQuery", {'callback_query_id':update.get("callback_query").get("id")})
             user_id = update.get("callback_query").get("from").get("id")
             if(update.get("callback_query").get("data") == "google-pressed"):
-                self.show_url(user_id, update.get("callback_query").get("message").get("message_id"))
+                self.show_url(update.get("callback_query").get("message").get("chat").get("id"), update.get("callback_query").get("message").get("message_id"))
             else:
                 self.send_message_to_specific_person(user_id, update.get("callback_query").get("data"))
             return
