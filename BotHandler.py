@@ -64,7 +64,7 @@ class BotHandler(Bottle):
 
     def show_url(self, chat_id, message_id):
         # setup
-        method = self.send_message_endpoint
+        method = "editMessageText"
         keyboard = {"inline_keyboard": [[
                         { "text": "botão A",
                           "callback_data": "button-A-pressed"}, 
