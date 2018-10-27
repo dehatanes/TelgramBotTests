@@ -16,8 +16,8 @@ class MongoDB:
 		user["username"] = user_infos.get("username")
 		user["id"] = user_infos.get("id")
 		user["interactions_count"] = 1
-		self.db.test_collection.insert(user)
+		MongoDB.db.test_collection.insert(user)
 
 	def getAllData():
 		print("GETTING ALL THE DATA")
-		return self.db.test_collection.find()
+		return MongoDB.db.test_collection.find()
