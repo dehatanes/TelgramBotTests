@@ -26,7 +26,7 @@ class MongoDB:
 		print("GETTING ALL THE USERS") 
 		users_list = eval(dumps(MongoDB.db.test_collection.find()))
 		response = set()
-		for user in lista:
+		for user in users_list:
 			response.add(user.get("id"))
 		return response
 
