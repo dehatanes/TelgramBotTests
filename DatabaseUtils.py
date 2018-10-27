@@ -21,4 +21,4 @@ class MongoDB:
 
 	def getAllData():
 		print("GETTING ALL THE DATA")
-		return dumps(MongoDB.db.test_collection.find())s
+		return dumps(MongoDB.db.test_collection.find())
