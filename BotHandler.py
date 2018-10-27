@@ -31,12 +31,13 @@ class BotHandler(Bottle):
         self.api_base_url = self.api_base_url.format(token)
         # Handle conversation
         self.route(self.ROOT_ENDPOINT, callback=self.handle_updates, method="POST")
-        self.route(self.RUN_SCHEDULED_SCRIPT_ENDPOINT, callback=self.send_message_to_all_users, method="POST")
+        self.route(self.RUN_SCHEDULED_SCRIPT_ENDPOINT, callback=self.send_message_to_all_users, method="GET")
         self.route(self.GET_DATABASE_ENDPOINT, callback=self.return_database, method="GET")
 
     def send_message_to_all_users(self):
         users = MongoDB.getAllUsers()
         for userid in users:
+            print("messaging user {0}".format(userid))
             self.send_message_to_specific_person(userid,"messaging everybody. I AM ALIVE!")
 
     def return_database(self):
