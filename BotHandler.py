@@ -40,7 +40,7 @@ class BotHandler(Bottle):
             print("messaging user {0}".format(userid))
             self.send_message_to_specific_person(userid,"messaging everybody. I AM ALIVE!")
         response.headers['Content-Type'] = 'application/json'
-        return {"Status":"Ok", "users_messaged":users}
+        return {"Status":"Ok", "users_messaged": list(users)}
 
     def return_database(self):
         resp = MongoDB.getAllData()
