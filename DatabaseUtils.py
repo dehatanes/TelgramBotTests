@@ -1,5 +1,6 @@
 from Constants import Constants
 from urllib.parse import urlparse
+from bson.json_util import dumps
 import pymongo
 
 class MongoDB:
@@ -20,4 +21,4 @@ class MongoDB:
 
 	def getAllData():
 		print("GETTING ALL THE DATA")
-		return MongoDB.db.test_collection.find()
+		return dumps(MongoDB.db.test_collection.find())s
