@@ -3,9 +3,9 @@ import pymongo
 
 class MongoDB:
 	# Connect with the database using pymongo
-	conn = pymongo.MongoClient(Constants.MONGO_URL)
+	conn = pymongo.MongoClient(Constants.MONGODB_URI)
 	# Get the database
-	db = conn[urlparse(Constants.MONGO_URL).path[1:]]
+	db = conn[urlparse(Constants.MONGODB_URI).path[1:]]
 
 	def insertNewUser(user_infos):
 		print("NEW USER INSERTED")
