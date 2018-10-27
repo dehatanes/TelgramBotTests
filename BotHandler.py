@@ -98,7 +98,7 @@ class BotHandler(Bottle):
         if(update.get("callback_query")): #handle button click
             user_id = update.get("callback_query").get("from").get("id")
             if(update.get("callback_query").get("data") == "google-pressed"):
-                show_url(user_id, update.get("callback_query").get("message").get("message_id"))
+                self.show_url(user_id, update.get("callback_query").get("message").get("message_id"))
             else:
                 self.send_message_to_specific_person(user_id, update.get("callback_query").get("data"))
             return
