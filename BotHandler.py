@@ -51,12 +51,29 @@ class BotHandler(Bottle):
         keyboard = {"inline_keyboard": [[
                         { "text": "botão A",
                           "callback_data": "button-A-pressed"}, 
-                        { "text": "google.com",
-                          "url":"https://www.google.com.br/",
-                          "callback_data": "google.com-pressed"}]]}
+                        { "text": "show url",
+                          "callback_data": "google-pressed"}]]}
 
         params = {'chat_id': chat_id,
                   'text': text,
+                  'reply_markup': json.dumps(keyboard)}
+        # request
+        resp = requests.get(self.api_base_url + method, params).json()
+        if(resp.get("ok")):
+            return resp
+
+    def show_url(self, chat_id, message_id):
+        # setup
+        method = self.send_message_endpoint
+        keyboard = {"inline_keyboard": [[
+                        { "text": "botão A",
+                          "callback_data": "button-A-pressed"}, 
+                        { "text": "google.com",
+                          "url":"https://www.google.com.br/" }]]}
+
+        params = {'chat_id': chat_id,
+                  'message_id': message_id,
+                  'text': "Vou te mostrar a url. clique no link",
                   'reply_markup': json.dumps(keyboard)}
         # request
         resp = requests.get(self.api_base_url + method, params).json()
@@ -80,7 +97,10 @@ class BotHandler(Bottle):
 
         if(update.get("callback_query")): #handle button click
             user_id = update.get("callback_query").get("from").get("id")
-            self.send_message_to_specific_person(user_id, update.get("callback_query").get("data"))
+            if(update.get("callback_query").get("data") == "google-pressed"):
+                show_url(user_id, update.get("callback_query").get("message").get("message_id"))
+            else:
+                self.send_message_to_specific_person(user_id, update.get("callback_query").get("data"))
             return
 
         user_id = update.get("message").get("from").get("id")
