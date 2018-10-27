@@ -9,11 +9,9 @@ class BotHandler(Bottle):
     #----------------
     # API ENDPOINTS
     #----------------
-    ROOT_ENDPOINT                      = "/"
-    SEND_MESSAGE_TO_BOT_USERS_ENDPOINT = "/{0}/send-message".format(os.environ.get("TOKEN"))
-    HANDLE_RECEIVED_MESSAGE_ENDPOINT   = "/{0}/received-message".format(os.environ.get("TOKEN"))
-    RUN_SCHEDULED_SCRIPT_ENDPOINT      = "/scheduled-script"
-    GET_DATABASE_ENDPOINT              = "/get-database"
+    ROOT_ENDPOINT                  = "/"
+    RECEIVED_MESSAGE_FROM_CHATBOT1 = "/received-message-chatbot1"
+    GET_DATABASE_ENDPOINT          = "/get-database"
 
     # Telegram API constants
     api_base_url          = "https://api.telegram.org/bot{0}/" # {0} = bot_token
@@ -30,9 +28,9 @@ class BotHandler(Bottle):
         self.token = token
         self.api_base_url = self.api_base_url.format(token)
         # Handle conversation
-        self.route(self.ROOT_ENDPOINT, callback=self.handle_updates, method="POST")
-        self.route(self.RUN_SCHEDULED_SCRIPT_ENDPOINT, callback=self.send_message_to_all_users, method="GET")
+        self.route(self.ROOT_ENDPOINT, callback=self.send_message_to_all_users, method="GET")
         self.route(self.GET_DATABASE_ENDPOINT, callback=self.return_database, method="GET")
+        self.route(self.RECEIVED_MESSAGE_FROM_CHATBOT1, callback=self.handle_updates, method="POST")
 
     def send_message_to_all_users(self):
         users = MongoDB.getAlluserIds()
