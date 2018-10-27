@@ -4,11 +4,11 @@ import pymongo
 class MongoDB:
 	# Connect with the database using pymongo
 	conn = pymongo.Connection(Constants.MONGO_URL)
-    # Get the database
-    db = conn[urlparse(Constants.MONGO_URL).path[1:]]
+	# Get the database
+	db = conn[urlparse(Constants.MONGO_URL).path[1:]]
 
-    def insertNewUser(user_infos):
-    	print("NEW USER INSERTED")
+	def insertNewUser(user_infos):
+		print("NEW USER INSERTED")
 		user = {}
 		user["first_name"] = user_infos.get("first_name")
 		user["last_name"] = user_infos.get("last_name")
