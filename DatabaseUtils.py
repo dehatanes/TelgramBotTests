@@ -3,7 +3,7 @@ import pymongo
 
 class MongoDB:
 	# Connect with the database using pymongo
-	conn = pymongo.Connection(Constants.MONGO_URL)
+	conn = pymongo.MongoClient(Constants.MONGO_URL)
 	# Get the database
 	db = conn[urlparse(Constants.MONGO_URL).path[1:]]
 
