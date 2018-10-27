@@ -105,6 +105,7 @@ class BotHandler(Bottle):
         user_id = update.get("message").get("from").get("id")
         user = self.users_list.get(user_id)
         if(user):
+            MongoDB.newInteractionFromUser(user_id)
             if(not user.greeted):
                 self.start_the_chat(user)
                 return

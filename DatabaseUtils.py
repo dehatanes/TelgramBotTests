@@ -19,6 +19,9 @@ class MongoDB:
 		user["interactions_count"] = 1
 		MongoDB.db.test_collection.insert(user)
 
+	def newInteractionFromUser(userId):
+		MongoDB.db.test_collection.update({ 'id': userId }, {'$inc':{'interactions_count': 1}})
+
 	def getAllData():
 		print("GETTING ALL THE DATA")
 		return dumps(MongoDB.db.test_collection.find())
