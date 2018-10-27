@@ -1,5 +1,5 @@
 from Constants import Constants
-from urlparse import urlparse
+from urllib.parse import urlparse
 import pymongo
 
 class MongoDB:

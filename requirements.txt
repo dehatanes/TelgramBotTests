@@ -5,4 +5,3 @@ python-dateutil==2.7.3
 pipenv==2018.7.1
 bottle==0.12.8
 pymongo==2.7.1
-urlparse
