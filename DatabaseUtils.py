@@ -49,7 +49,7 @@ class MongoDB:
 			user_bot_token = user.get('interacting_with_bot')
 			if(not response.get(user_bot_token)):
 				response[user_bot_token] = set()
-			response[user_bot_token].add(user.get("id"))
+			response[user_bot_token].add(user.get("user_id"))
 		response[Constants.BOT1_TOKEN] = list(response.get(Constants.BOT1_TOKEN,()))
 		response[Constants.BOT2_TOKEN] = list(response.get(Constants.BOT2_TOKEN,()))
 		return response
