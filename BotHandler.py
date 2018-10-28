@@ -30,7 +30,7 @@ class BotHandler(Bottle):
         # Handle conversation
         self.route(self.ROOT_ENDPOINT, callback=self.send_message_to_all_users, method="GET")
         self.route(self.GET_DATABASE_ENDPOINT, callback=self.return_database, method="GET")
-        self.route(self.RECEIVED_MESSAGE_FROM_CHATBOT1, callback=self.handle_updates, method="POST")
+        self.route(self.RECEIVED_MESSAGE_FROM_CHATBOT1, callback=self.handle_updates, method="GET")
 
     def send_message_to_all_users(self):
         users = MongoDB.getAlluserIds()
