@@ -50,8 +50,8 @@ class MongoDB:
 			if(not response.get(user_bot_token)):
 				response[user_bot_token] = set()
 			response[user_bot_token].add(user.get("id"))
-		users_list[Constants.BOT1_TOKEN] = list(users_list.get(Constants.BOT1_TOKEN,()))
-		users_list[Constants.BOT2_TOKEN] = list(users_list.get(Constants.BOT2_TOKEN,()))
+		response[Constants.BOT1_TOKEN] = list(response.get(Constants.BOT1_TOKEN,()))
+		response[Constants.BOT2_TOKEN] = list(response.get(Constants.BOT2_TOKEN,()))
 		return response
 
 	#-----------------------------
