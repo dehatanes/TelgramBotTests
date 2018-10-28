@@ -51,8 +51,9 @@ class AppHandler(Bottle):
 		data = {'message':message, 'sended_to':users}
 		MongoDB.insertNewSendedMessage(data)
 		# response
-		response.headers['Content-Type'] = 'application/json'
-		return json.dumps(data)
+		print(data)
+		#response.headers['Content-Type'] = 'application/json'
+		#return json.dumps(data)
 
 	def handle_chatbot1_updates(self):
 		# verify type of message
