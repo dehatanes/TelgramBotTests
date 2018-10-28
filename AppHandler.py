@@ -45,7 +45,7 @@ class AppHandler(Bottle):
 		# get all users from Mongo
 		users = MongoDB.getAlluserIds()
 		# send message
-		InterativeBot.sendMessageToMultipleUsers(users.get(Constants.BOT1_TOKEN))
+		InterativeBot.sendMessageToMultipleUsers(users.get(Constants.BOT1_TOKEN), message)
 		#SimpleBot.sendMessageToMultipleUsers(users.get(Constants.BOT2_TOKEN))
 		# save in Mongo the sended message (and users involved)
 		data = {'message':message, 'sended_to':users}
