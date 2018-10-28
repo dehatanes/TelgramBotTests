@@ -22,6 +22,6 @@ class ApiDadosAbertos:
 				if(not MongoDB.verifyIfUsedPL(pl.get('id'))):
 					# so, when we found a project that we haven't used yet, we request a more complete version of it 
 					full_pl_infos = requests.get(pl.get('uri'), headers=headers).json().get('dados')
-					if(full_pl_infos and MongoDB.insertNewUsedPL(full_pl_infos) == 'success')
+					if(full_pl_infos and MongoDB.insertNewUsedPL(full_pl_infos) == 'success'):
 						return full_pl_infos
 
