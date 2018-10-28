@@ -16,7 +16,7 @@ class AppHandler(Bottle):
 	RECEIVED_MESSAGE_FROM_CHATBOT2 = "/received-message-chatbot2"
 
 	# START APP
-	def __init__(self, token):
+	def __init__(self):
 		# Setup
 		super(BotHandler, self).__init__()
 		# Set bot webhooks
