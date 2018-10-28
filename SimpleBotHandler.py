@@ -1,4 +1,4 @@
-cimport Constants
+import Constants
 import requests
 import json
 
