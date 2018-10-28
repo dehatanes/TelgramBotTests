@@ -52,7 +52,7 @@ class AppHandler(Bottle):
 		MongoDB.insertNewSendedMessage(data)
 		# response
 		response.headers['Content-Type'] = 'application/json'
-		return data
+		return json.dumps(data)
 
 	def handle_chatbot1_updates(self):
 		# verify type of message
