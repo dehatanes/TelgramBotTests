@@ -18,7 +18,7 @@ class AppHandler(Bottle):
 	# START APP
 	def __init__(self):
 		# Setup
-		super(BotHandler, self).__init__()
+		super(AppHandler, self).__init__()
 		# Set bot webhooks
 		requests.get((Constants.BOT1_BASE_API + Constants.SET_WEBHOOK_ENDPOINT), {'url': (Constants.HEROKU_URL + AppHandler.RECEIVED_MESSAGE_FROM_CHATBOT1)})
 		requests.get((Constants.BOT2_BASE_API + Constants.SET_WEBHOOK_ENDPOINT), {'url': (Constants.HEROKU_URL + AppHandler.RECEIVED_MESSAGE_FROM_CHATBOT2)})
