@@ -1,4 +1,3 @@
-
 INTERATIVE_BOT_GREETING_MESSAGE = "Olá, bem vindo ao disney chanel.\n" + \
 								  "A ideia é que aqui eu fale um pouco sobre de onde a gente pega os dados e tal.\n" + \
 								  "Também fale o que você pode fazer com esse bot...\n" + \
