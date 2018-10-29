@@ -55,8 +55,6 @@ class AppHandler(Bottle):
 		data = {'message':message, 'sended_to':users}
 		MongoDB.insertNewSendedProject(data)
 		# response
-		print(data)
-		data.pop('_id') # <- removing field because it's not JSON serializable
 		return json.dumps(data)
 
 	def handle_chatbot1_updates(self):
