@@ -1,4 +1,5 @@
 from DatabaseUtils import MongoDB
+import MessageModels
 import Constants
 import requests
 import json
@@ -34,15 +35,37 @@ class InterativeBot:
 		# properly handle the callback
 		if(callback_type == Constants.CALLBACK_SHOW_PROPOSITION):
 			InterativeBot.show_url(chat_id, message_id, message_content)
-		# TODO -> ADD IN MONGO_DB
+		elif(callback_type == Constants.CALLBACK_SHOW_PROP_EXAMPLE):
+			"todo"
 	
 	def handleTextMessage(message_info):
-		# TODO
-		pass
+		received_message = message_info.get("callback_query").get("message").get("text")
+		if('/start' in received_message):
+			InterativeBot.greetNewUser(message_info)
+		else:
+			# setup
+			endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
+			message_to_send = MessageModels.DONT_KNOW_WHAT_TO_SAY
+			params   = {'chat_id': chat_id,
+				   		'text': message}
+			# send the message
+			requests.get(endpoint, params)
+		
 
 	def greetNewUser(message_info):
-		# TODO
-		pass
+		user_id    = message_info.get("message").get("from").get("id")
+		user_name  = message_info.get("message").get("from").get("first_name", "pessoa")
+		# setup
+		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
+		message = MessageModels.INTERATIVE_BOT_GREETING_MESSAGE.format(user_name)
+		keyboard = {"inline_keyboard": [[
+						{ "text": "me mande um exemplo, por favor",
+						  "callback_data": Constants.CALLBACK_SHOW_PROP_EXAMPLE}]]}
+		params   = {'chat_id': chat_id,
+				    'text': message,
+				    'reply_markup': json.dumps(keyboard)}
+		# send the message
+		requests.get(endpoint, params)
 
 	def show_url(chat_id, message_id, message_text):
 		# get the PL url

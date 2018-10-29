@@ -77,6 +77,7 @@ class AppHandler(Bottle):
 				MongoDB.insertNewUser(new_message, this_bot_token)
 			else:
 				InterativeBot.handleTextMessage(new_message)
+		MongoDB.insertNewSendedMessage(new_message, this_bot_token)
 
 	def handle_chatbot2_updates(self):
 		# verify type of message

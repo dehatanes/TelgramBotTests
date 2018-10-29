@@ -92,7 +92,9 @@ class MongoDB:
 	#---------------------------------
 	# SENDED_MSGS_COLLECTION METHODS
 	#---------------------------------
-	def insertNewSendedMessage(data_to_be_inserted):
+	def insertNewSendedMessage(data, bot_id):
+		data_to_be_inserted = {"bot_id" : bot_id}
+		data_to_be_inserted['message_received'] = data
 		MongoDB.db[MongoDB.SENDED_MSGS_COLLECTION].insert_one(data_to_be_inserted)
 
 	#---------------------------------
