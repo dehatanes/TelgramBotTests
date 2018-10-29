@@ -45,14 +45,22 @@ class InterativeBot:
 		pass
 
 	def show_url(chat_id, message_id, message_text):
+		# get the PL url
+		pl_id = eval(message_text.split('ID da PL na API de Dados Abertos: ')[-1])
+		url = MongoDB.getUrlFromPL(pl_id)
 		# setup
 		endpoint = InterativeBot.base_api + Constants.EDIT_MESSAGE_ENDPOINT
-		keyboard = {"inline_keyboard": [[
-                        { "text": "google.com",
-                          "url":"https://www.google.com.br/" }]]}
-		params = {'chat_id': chat_id,
-                  'message_id': message_id,
-                  'text': message_text,
-                  'reply_markup': json.dumps(keyboard)}
+		if(url):
+			keyboard = {"inline_keyboard": [[
+	                        { "text": "link para proposta na íntegra",
+	                          "url":url}]]}
+			params = {'chat_id': chat_id,
+	                  'message_id': message_id,
+	                  'text': message_text,
+	                  'reply_markup': json.dumps(keyboard)}
+	    else:
+	    	params = {'chat_id': chat_id,
+	                  'message_id': message_id,
+	                  'text': message_text + '\n\nESSA PL NÃO POSSUI LINK PARA PROPOSTA NA ÍNTEGRA'}
 		# request
 		requests.get(endpoint, params)

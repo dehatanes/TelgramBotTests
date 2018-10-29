@@ -80,6 +80,15 @@ class MongoDB:
 		search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query)
 		return dumps(search_result)
 
+	def getUrlFromPL(pl_id):
+		try:
+			search_query  = {'pl_id':pl_id}
+			fields_filter = {"statusProposicao.url":1,'_id':0}
+			search_result = dumps(db.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query,fields_filter))
+			return eval(search_result).get("statusProposicao").get("url")
+		except:
+			return None
+
 	#---------------------------------
 	# SENDED_MSGS_COLLECTION METHODS
 	#---------------------------------
