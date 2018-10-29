@@ -36,7 +36,7 @@ class InterativeBot:
 		if(callback_type == Constants.CALLBACK_SHOW_PROPOSITION):
 			InterativeBot.show_url(chat_id, message_id, message_content)
 		elif(callback_type == Constants.CALLBACK_SHOW_PROP_EXAMPLE):
-			newPL = ApiDadosAbertos.showMeSomeNews() # <- Already saves the PL in our database
+			newPL = MongoDB.returnUsedPL()
 			message = MessageModels.NEW_PL_MESSAGE_MODEL.format(newPL.get('numero'),
 																newPL.get('ano'),
 																newPL.get('ementa'),
@@ -71,7 +71,7 @@ class InterativeBot:
 						{ "text": "me mande um exemplo, por favor",
 						  "callback_data": Constants.CALLBACK_SHOW_PROP_EXAMPLE}]]}
 		params   = {'chat_id': user_id,
-				    'text': message,
+				    'text': messagess,
 				    'reply_markup': json.dumps(keyboard)}
 		# send the message
 		InterativeBot.send(endpoint, params)
