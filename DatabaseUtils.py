@@ -76,10 +76,11 @@ class MongoDB:
 		return True
 
 	def returnUsedPL(pl_id = None):
-		search_query = {}
+		search_query = {'pl_id':pl_id}
 		if(pl_id):
-			search_query  = {'pl_id':pl_id}
-		search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query)
+			search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query)
+		else:
+			search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one()
 		return eval(dumps(search_result))
 
 	def getUrlFromPL(pl_id):
