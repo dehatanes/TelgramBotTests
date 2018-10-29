@@ -35,11 +35,11 @@ class MongoDB:
 	def insertNewUser(user_infos, bot_token):
 		print("INSERTING NEW USER")
 		user = {}
+		user['timestamp']            = datetime.now()
 		user["user_id"]              = user_infos.get("id")
 		user["username"]             = user_infos.get("username")
 		user["last_name"]            = user_infos.get("last_name")
 		user["first_name"]           = user_infos.get("first_name")
-		user['created_time']         = datetime.now()
 		user["interacting_with_bot"] = bot_token
 		MongoDB.db[MongoDB.USERS_COLLECTION].insert_one(user)
 
@@ -63,8 +63,8 @@ class MongoDB:
 		print("INSERTING NEW PL")
 		if(not pl_infos.get('id')):
 			return 'fail'
-		pl_infos['pl_id']        = pl_infos.get('id')
-		pl_infos['created_time'] = datetime.now()
+		pl_infos['pl_id']     = pl_infos.get('id')
+		pl_infos['timestamp'] = datetime.now()
 		MongoDB.db[MongoDB.USED_PLS_COLLECTION].insert_one(pl_infos)
 		return 'success'
 
@@ -92,23 +92,20 @@ class MongoDB:
 	#---------------------------------
 	# SENDED_MSGS_COLLECTION METHODS
 	#---------------------------------
-	def insertNewSendedProject(data):
-		data_to_be_inserted = {"bot_id" : bot_id}
-		data_to_be_inserted['message_received'] = data
+	def insertNewSendedProject(data_to_be_inserted):
+		data_to_be_inserted = {"timestamp" : datetime.now()}
+		data_to_be_inserted['message_sended'] = data
 		MongoDB.db[MongoDB.SENDED_MSGS_COLLECTION].insert_one(data_to_be_inserted)
 
 	def insertNewSendedMessage(data, bot_id):
-		data_to_be_inserted = {"bot_id" : bot_id}
-		data_to_be_inserted['message_received'] = data
+		data_to_be_inserted = {"bot_id" : bot_id, "timestamp" : datetime.now()}
+		data_to_be_inserted['message_sended'] = data
 		MongoDB.db[MongoDB.SENDED_MSGS_COLLECTION].insert_one(data_to_be_inserted)
 
 	#---------------------------------
 	# RECEIVED_MSGS_COLLECTION METHODS
 	#---------------------------------
-	def saveReceivedCallback(raw_message):
-		#MongoDB.db[MongoDB.RECEIVED_MSGS_COLLECTION].insert_one(raw_message)
-		pass
-
-	def saveReceivedMessage(raw_message):
-		#MongoDB.db[MongoDB.RECEIVED_MSGS_COLLECTION].insert_one(raw_message)
-		pass
+	def insertNewReceivedMessage(data, bot_id):
+		data_to_be_inserted = {"bot_id" : bot_id, "timestamp" : datetime.now()}
+		data_to_be_inserted['message_received'] = data
+		MongoDB.db[MongoDB.RECEIVED_MSGS_COLLECTION].insert_one(data_to_be_inserted)

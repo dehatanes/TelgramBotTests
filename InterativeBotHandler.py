@@ -21,7 +21,7 @@ class InterativeBot:
 				    'text': message,
 				    'reply_markup': json.dumps(keyboard)}
 		# send the message
-		requests.get(endpoint, params)
+		InterativeBot.send(endpoint, params)
 
 	def handleCallback(message_info):
 		# understand the content
@@ -49,7 +49,7 @@ class InterativeBot:
 			params   = {'chat_id': chat_id,
 				   		'text': message}
 			# send the message
-			requests.get(endpoint, params)
+			InterativeBot.send(endpoint, params)
 		
 
 	def greetNewUser(message_info):
@@ -65,7 +65,7 @@ class InterativeBot:
 				    'text': message,
 				    'reply_markup': json.dumps(keyboard)}
 		# send the message
-		requests.get(endpoint, params)
+		InterativeBot.send(endpoint, params)
 
 	def show_url(chat_id, message_id, message_text):
 		# get the PL url
@@ -86,4 +86,10 @@ class InterativeBot:
 	                  'message_id': message_id,
 	                  'text': message_text + '\n\nESSA PL NÃO POSSUI LINK PARA PROPOSTA NA ÍNTEGRA'}
 		# request
-		requests.get(endpoint, params)
+		InterativeBot.send(endpoint, params)
+
+	def send(endpoint, params):
+		# save to mongo
+		MongoDB.insertNewSendedMessage(params, Constants.BOT1_TOKEN)
+		# request
+		return requests.get(endpoint, params)
