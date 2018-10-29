@@ -4,7 +4,7 @@ import Constants
 import requests
 import json
 
-class InterativeBot:
+class SimpleBot:
 	base_api = Constants.BOT2_BASE_API
 
 	def sendMessageToMultipleUsers(users_list, message):
