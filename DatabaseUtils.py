@@ -80,8 +80,9 @@ class MongoDB:
 		if(pl_id):
 			search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query)
 		else:
-			search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one()
-		return eval(dumps(search_result))
+			search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find().limit(1)
+		search_result = dumps(search_result)
+		return search_result if search_result != 'null' else None
 
 	def getUrlFromPL(pl_id):
 		try:
