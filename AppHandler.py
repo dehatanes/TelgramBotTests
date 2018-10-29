@@ -53,7 +53,7 @@ class AppHandler(Bottle):
 		#SimpleBot.sendMessageToMultipleUsers(users.get(Constants.BOT2_TOKEN))
 		# save in Mongo the sended message (and users involved)
 		data = {'message':message, 'sended_to':users}
-		MongoDB.insertNewSendedMessage(data)
+		MongoDB.insertNewSendedProject(data)
 		# response
 		print(data)
 		data.pop('_id') # <- removing field because it's not JSON serializable
