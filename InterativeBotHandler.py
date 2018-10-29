@@ -58,8 +58,8 @@ class InterativeBot:
 	                  'message_id': message_id,
 	                  'text': message_text,
 	                  'reply_markup': json.dumps(keyboard)}
-	    else:
-	    	params = {'chat_id': chat_id,
+		else:
+			params = {'chat_id': chat_id,
 	                  'message_id': message_id,
 	                  'text': message_text + '\n\nESSA PL NÃO POSSUI LINK PARA PROPOSTA NA ÍNTEGRA'}
 		# request
