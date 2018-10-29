@@ -80,7 +80,7 @@ class MongoDB:
 		if(pl_id):
 			search_query  = {'pl_id':pl_id}
 		search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query)
-		return dumps(search_result)
+		return eval(dumps(search_result))
 
 	def getUrlFromPL(pl_id):
 		try:
