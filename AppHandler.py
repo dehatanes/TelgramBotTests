@@ -26,7 +26,7 @@ class AppHandler(Bottle):
 		self.route(self.ROOT_ENDPOINT, callback=self.scheduled_script, method="GET")
 		self.route(self.RECEIVED_MESSAGE_FROM_CHATBOT1, callback=self.handle_chatbot1_updates, method="POST")
 		self.route(self.RECEIVED_MESSAGE_FROM_CHATBOT2, callback=self.handle_chatbot2_updates, method="POST")
-		self.hook('after_request', callback=self.addHeadersToAllResponses)
+		self.add_hook('after_request', func=self.addHeadersToAllResponses)
 
 	def addHeadersToAllResponses():
 		response.headers['Content-Type'] = 'application/json' # <- config. our responses to be sent in JSON
