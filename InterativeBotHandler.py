@@ -44,7 +44,7 @@ class InterativeBot:
 		# TODO
 		pass
 
-	def show_url(self, chat_id, message_id, message_text):
+	def show_url(chat_id, message_id, message_text):
 		# setup
 		endpoint = InterativeBot.base_api + Constants.EDIT_MESSAGE_ENDPOINT
 		keyboard = {"inline_keyboard": [[
