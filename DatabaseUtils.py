@@ -80,7 +80,7 @@ class MongoDB:
 		if(pl_id):
 			search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query)
 		else:
-			search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find().limit(1)
+			search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find().limit(1)[0]
 		search_result = dumps(search_result)
 		return None if search_result == 'null' else eval(search_result.replace('null','None'))
 
