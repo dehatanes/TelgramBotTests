@@ -28,7 +28,7 @@ class AppHandler(Bottle):
 		self.route(self.RECEIVED_MESSAGE_FROM_CHATBOT2, callback=self.handle_chatbot2_updates, method="POST")
 		self.add_hook('after_request', func=self.addHeadersToAllResponses)
 
-	def addHeadersToAllResponses():
+	def addHeadersToAllResponses(self):
 		response.headers['Content-Type'] = 'application/json' # <- config. our responses to be sent in JSON
 
 	# METHODS
@@ -69,14 +69,14 @@ class AppHandler(Bottle):
 		print()
 		# verify type of message
 		if(new_message.get("callback_query")):
-			InterativeBotHandler.handleCallback(new_message)
+			InterativeBot.handleCallback(new_message)
 		if(new_message.get("message")):
 			user_id = new_message.get("message").get("from").get("id")
 			if(not MongoDB.checkIfUserExistsInBot(user_id, this_bot_token)):
 				InterativeBot.greetNewUser(new_message)
 				MongoDB.insertNewUser(new_message, this_bot_token)
 			else:
-				InterativeBotHandler.handleTextMessage(new_message)
+				InterativeBot.handleTextMessage(new_message)
 
 	def handle_chatbot2_updates(self):
 		# verify type of message
