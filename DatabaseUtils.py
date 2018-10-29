@@ -91,6 +91,8 @@ class MongoDB:
 	#---------------------------------
 	def saveReceivedCallback(raw_message):
 		#MongoDB.db[MongoDB.RECEIVED_MSGS_COLLECTION].insert_one(raw_message)
+		pass
 
 	def saveReceivedMessage(raw_message):
 		#MongoDB.db[MongoDB.RECEIVED_MSGS_COLLECTION].insert_one(raw_message)
+		pass

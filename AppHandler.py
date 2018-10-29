@@ -29,7 +29,7 @@ class AppHandler(Bottle):
 		self.hook('after_request', callback=self.addHeadersToAllResponses)
 
 	def addHeadersToAllResponses():
-    	response.headers['Content-Type'] = 'application/json' # <- config. our responses to be sent in JSON
+		response.headers['Content-Type'] = 'application/json' # <- config. our responses to be sent in JSON
 
 	# METHODS
 	def scheduled_script(self):
