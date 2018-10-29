@@ -72,7 +72,7 @@ class AppHandler(Bottle):
 			user_id = new_message.get("message").get("from").get("id")
 			if(not MongoDB.checkIfUserExistsInBot(user_id, this_bot_token)):
 				InterativeBot.greetNewUser(new_message)
-				MongoDB.insertNewUser(new_message, this_bot_token)
+				MongoDB.insertNewUser(new_message.get("message").get("from"), this_bot_token)
 			else:
 				InterativeBot.handleTextMessage(new_message)
 		MongoDB.insertNewReceivedMessage(new_message, this_bot_token)
