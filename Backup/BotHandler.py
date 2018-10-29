@@ -13,11 +13,7 @@ class BotHandler(Bottle):
     RECEIVED_MESSAGE_FROM_CHATBOT1 = "/received-message-chatbot1"
     GET_DATABASE_ENDPOINT          = "/get-database"
 
-    # Telegram API constants
-    api_base_url          = "https://api.telegram.org/bot{0}/" # {0} = bot_token
-    get_updates_endpoint  = "getUpdates"   # no params
-    send_message_endpoint = "sendMessage"  # params = chat_id, text
-
+    
     # Database simulation
     users_list = {}
 
@@ -28,7 +24,7 @@ class BotHandler(Bottle):
         self.token = token
         self.api_base_url = self.api_base_url.format(token)
         # Handle conversation
-        self.route(self.ROOT_ENDPOINT, callback=self.send_message_to_all_users, method="GET")
+        self.route(self.ROOT_ENDPOINT, callback=self.send_message_to_all_users, method="POST")
         self.route(self.GET_DATABASE_ENDPOINT, callback=self.return_database, method="GET")
         self.route(self.RECEIVED_MESSAGE_FROM_CHATBOT1, callback=self.handle_updates, method="POST")
 
