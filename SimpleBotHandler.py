@@ -8,9 +8,9 @@ class SimpleBot:
 
 	def sendMessageToMultipleUsers(users_list, message):
 		for user_id in users_list:
-			SimpleBot.sendMessageToOneUser(user_id, message)
+			SimpleBot.sendProjectMessageToOneUser(user_id, message)
 
-	def sendMessageToOneUser(chat_id, message):
+	def sendProjectMessageToOneUser(chat_id, message):
 		# setup
 		endpoint = SimpleBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
 		keyboard = {"inline_keyboard": [[

@@ -1,5 +1,6 @@
 from urllib.parse import urlparse
 from bson.json_util import dumps
+from datetime import datetime
 import Constants
 import pymongo
 
@@ -38,6 +39,7 @@ class MongoDB:
 		user["username"]             = user_infos.get("username")
 		user["last_name"]            = user_infos.get("last_name")
 		user["first_name"]           = user_infos.get("first_name")
+		user['created_time']         = datetime.now()
 		user["interacting_with_bot"] = bot_token
 		MongoDB.db[MongoDB.USERS_COLLECTION].insert_one(user)
 
@@ -59,9 +61,10 @@ class MongoDB:
 	#-----------------------------
 	def insertNewUsedPL(pl_infos):
 		print("INSERTING NEW PL")
-		pl_infos['pl_id'] = pl_infos.get('id')
-		if(not pl_infos.get('pl_id')):
-			return
+		if(not pl_infos.get('id')):
+			return 'fail'
+		pl_infos['pl_id']        = pl_infos.get('id')
+		pl_infos['created_time'] = datetime.now()
 		MongoDB.db[MongoDB.USED_PLS_COLLECTION].insert_one(pl_infos)
 		return 'success'
 
@@ -82,3 +85,12 @@ class MongoDB:
 	#---------------------------------
 	def insertNewSendedMessage(data_to_be_inserted):
 		MongoDB.db[MongoDB.SENDED_MSGS_COLLECTION].insert_one(data_to_be_inserted)
+
+	#---------------------------------
+	# RECEIVED_MSGS_COLLECTION METHODS
+	#---------------------------------
+	def saveReceivedCallback(raw_message):
+		#MongoDB.db[MongoDB.RECEIVED_MSGS_COLLECTION].insert_one(raw_message)
+
+	def saveReceivedMessage(raw_message):
+		#MongoDB.db[MongoDB.RECEIVED_MSGS_COLLECTION].insert_one(raw_message)

@@ -1,4 +1,4 @@
-from bottle import Bottle, response, request as bottle_request
+from bottle import Bottle, hook, response, request as bottle_request
 from ApiDadosAbertosSrcScripts import ApiDadosAbertos
 from InterativeBotHandler import InterativeBot
 from SimpleBotHandler import SimpleBot
@@ -26,6 +26,10 @@ class AppHandler(Bottle):
 		self.route(self.ROOT_ENDPOINT, callback=self.scheduled_script, method="GET")
 		self.route(self.RECEIVED_MESSAGE_FROM_CHATBOT1, callback=self.handle_chatbot1_updates, method="POST")
 		self.route(self.RECEIVED_MESSAGE_FROM_CHATBOT2, callback=self.handle_chatbot2_updates, method="POST")
+		self.hook('after_request', callback=self.addHeadersToAllResponses)
+
+	def addHeadersToAllResponses():
+    	response.headers['Content-Type'] = 'application/json' # <- config. our responses to be sent in JSON
 
 	# METHODS
 	def scheduled_script(self):
@@ -52,24 +56,27 @@ class AppHandler(Bottle):
 		MongoDB.insertNewSendedMessage(data)
 		# response
 		print(data)
-		#response.headers['Content-Type'] = 'application/json'
-		#return json.dumps(data)
+		data.pop('_id') # <- removing field because it's not JSON serializable
+		return json.dumps(data)
 
 	def handle_chatbot1_updates(self):
+		this_bot_token = Constants.BOT1_TOKEN
+		# get the data
+		new_message = bottle_request.json
+		print()
+		print('RECEIVED MESSAGE IN CHATBOT 1')
+		print(new_message)
+		print()
 		# verify type of message
-		# if text message
-			# if /start message
-				# save user in DB
-				# InterativeBotHandler.greetNewUser
-			# else
-				# check if user inDB
-					# false -> add user in DB
-				# InterativeBotHandler.handleTextMessage
-			# save message in database
-		# if callback
-			# InterativeBotHandler.handleCallback
-			# save in database
-		print('handle_chatbot1_updates')
+		if(new_message.get("callback_query")):
+			InterativeBotHandler.handleCallback(new_message)
+		if(new_message.get("message")):
+			user_id = new_message.get("message").get("from").get("id")
+			if(not MongoDB.checkIfUserExistsInBot(user_id, this_bot_token)):
+				InterativeBot.greetNewUser(new_message)
+				MongoDB.insertNewUser(new_message, this_bot_token)
+			else:
+				InterativeBotHandler.handleTextMessage(new_message)
 
 	def handle_chatbot2_updates(self):
 		# verify type of message
