@@ -71,7 +71,7 @@ class InterativeBot:
 						{ "text": "me mande um exemplo, por favor",
 						  "callback_data": Constants.CALLBACK_SHOW_PROP_EXAMPLE}]]}
 		params   = {'chat_id': user_id,
-				    'text': messagess,
+				    'text': message,
 				    'reply_markup': json.dumps(keyboard)}
 		# send the message
 		InterativeBot.send(endpoint, params)
