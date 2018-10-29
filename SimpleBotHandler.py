@@ -84,7 +84,7 @@ class SimpleBot:
 		endpoint = SimpleBot.base_api + Constants.EDIT_MESSAGE_ENDPOINT
 		if(url):
 			keyboard = {"inline_keyboard": [[
-	                        { "text": "link para proposta na íntegra",
+	                        { "text": "CLIQUE: link para proposta na íntegra",
 	                          "url":url}]]}
 			params = {'chat_id': chat_id,
 	                  'message_id': message_id,

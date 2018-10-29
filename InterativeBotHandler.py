@@ -33,14 +33,20 @@ class InterativeBot:
 		# understand the content
 		callback_id     = message_info.get("callback_query").get("id")
 		callback_type   = message_info.get("callback_query").get("data")
-		message_content = message_info.get("callback_query").get("message").get("text")
+		message_text	= message_info.get("callback_query").get("message").get("text")
 		message_id      = message_info.get("callback_query").get("message").get("message_id")
 		chat_id         = message_info.get("callback_query").get("message").get("chat").get("id")
 		# answer the callback to hide the loading in the button
 		requests.get(InterativeBot.base_api + Constants.ANSWER_CALLBACK_ENDPOINT, {'callback_query_id':callback_id})
 		# properly handle the callback
 		if(callback_type == Constants.CALLBACK_SHOW_PROPOSITION):
-			InterativeBot.show_url(chat_id, message_id, message_content)
+			InterativeBot.show_url(chat_id, message_id, message_text)
+		elif(callback_type == Constants.CALLBACK_SHOW_AUTHORS):
+			InterativeBot.send_project_authors(chat_id, message_id, message_text)
+		elif(callback_type == Constants.CALLBACK_SHOW_KEY_WORDS):
+			InterativeBot.send_keywords(chat_id, message_id, message_text)
+		elif(callback_type == Constants.CALLBACK_SHOW_HISTORY):
+			InterativeBot.send_project_history(chat_id, message_id, message_text)
 		elif(callback_type == Constants.CALLBACK_SHOW_PROP_EXAMPLE):
 			newPL = MongoDB.returnUsedPL()
 			message = MessageModels.NEW_PL_MESSAGE_MODEL.format(newPL.get('numero'),
@@ -82,26 +88,76 @@ class InterativeBot:
 		# send the message
 		InterativeBot.send(endpoint, params)
 
+	# ------------------------
+	# HANDLE CALLBACK METHODS
+	# ------------------------
 	def show_url(chat_id, message_id, message_text):
 		# get the PL url
-		pl_id = eval(message_text.split('ID da PL na API de Dados Abertos: ')[-1])
+		pl_id = InterativeBot.getProjectIdFromMessage(message_text)
 		url = MongoDB.getUrlFromPL(pl_id)
 		# setup
 		endpoint = InterativeBot.base_api + Constants.EDIT_MESSAGE_ENDPOINT
 		if(url):
-			keyboard = {"inline_keyboard": [[
-	                        { "text": "link para proposta na íntegra",
-	                          "url":url}]]}
+			keyboard = {"inline_keyboard": [
+							[{ "text": "CLIQUE: link para proposta na íntegra",
+							   "url":url}],
+							[{ "text": "autores",
+							   "callback_data": Constants.CALLBACK_SHOW_AUTHORS},
+							 { "text": "palavras-chave",
+							   "callback_data": Constants.CALLBACK_SHOW_KEY_WORDS}],
+							[{ "text": "histórico de tramitação",
+							   "callback_data": Constants.CALLBACK_SHOW_HISTORY}]]}
 			params = {'chat_id': chat_id,
 	                  'message_id': message_id,
 	                  'text': message_text,
 	                  'reply_markup': json.dumps(keyboard)}
 		else:
+			keyboard = {"inline_keyboard": [
+							[{ "text": "autores",
+							   "callback_data": Constants.CALLBACK_SHOW_AUTHORS},
+							 { "text": "palavras-chave",
+							   "callback_data": Constants.CALLBACK_SHOW_KEY_WORDS}],
+							[{ "text": "histórico de tramitação",
+							   "callback_data": Constants.CALLBACK_SHOW_HISTORY}]]}
 			params = {'chat_id': chat_id,
 	                  'message_id': message_id,
-	                  'text': message_text + '\n\nESSA PL NÃO POSSUI LINK PARA PROPOSTA NA ÍNTEGRA'}
+	                  'text': 'ESSA PL NÃO POSSUI LINK PARA PROPOSTA NA ÍNTEGRA \n\n' + message_text,
+	                  'reply_markup': json.dumps(keyboard)}
 		# request
 		InterativeBot.send(endpoint, params)
+
+	def send_project_authors(chat_id, message_id, message_text):
+		# setup
+		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
+		params   = {'chat_id': chat_id,
+				    'text': "AUTORES DO PROJETO AQUI",
+				    'reply_to_message_id': message_id}
+		# send the message
+		InterativeBot.send(endpoint, params)
+
+	def send_keywords(chat_id, message_id, message_text):
+		# setup
+		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
+		params   = {'chat_id': chat_id,
+				    'text': "PALAVRAS CHAVE DO PROJETO AQUI",
+				    'reply_to_message_id': message_id}
+		# send the message
+		InterativeBot.send(endpoint, params)
+
+	def send_project_history(chat_id, message_id, message_text):
+		# setup
+		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
+		params   = {'chat_id': chat_id,
+				    'text': "HISTORICO DO PROJETO AQUI",
+				    'reply_to_message_id': message_id}
+		# send the message
+		InterativeBot.send(endpoint, params)
+
+	# -------------
+	# AUXILIARES
+	# -------------
+	def getProjectIdFromMessage(message):
+		return eval(message_text.split('ID da PL na API de Dados Abertos: ')[-1])
 
 	def send(endpoint, params):
 		# save to mongo
