@@ -57,7 +57,7 @@ class InterativeBot:
 			endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
 			message_to_send = MessageModels.DONT_KNOW_WHAT_TO_SAY
 			params   = {'chat_id': message_info.get("message").get("from").get("id"),
-				   		'text': message}
+				   		'text': message_to_send}
 			# send the message
 			InterativeBot.send(endpoint, params)
 
