@@ -78,17 +78,21 @@ class AppHandler(Bottle):
 		MongoDB.insertNewReceivedMessage(new_message, this_bot_token)
 
 	def handle_chatbot2_updates(self):
+		this_bot_token = Constants.BOT2_TOKEN
+		# get the data
+		new_message = bottle_request.json
+		print()
+		print('RECEIVED MESSAGE IN CHATBOT 1')
+		print(new_message)
+		print()
 		# verify type of message
-		# if text message
-			# if /start message
-				# save user in DB
-				# InterativeBotHandler.greetNewUser
-			# else
-				# check if user inDB
-					# false -> add user in DB
-				# InterativeBotHandler.handleTextMessage
-			# save message in database
-		# if callback
-			# InterativeBotHandler.handleCallback
-			# save in database
-		print('handle_chatbot2_updates')
+		if(new_message.get("callback_query")):
+			SimpleBot.handleCallback(new_message)
+		if(new_message.get("message")):
+			user_id = new_message.get("message").get("from").get("id")
+			if(not MongoDB.checkIfUserExistsInBot(user_id, this_bot_token)):
+				SimpleBot.greetNewUser(new_message)
+				MongoDB.insertNewUser(new_message.get("message").get("from"), this_bot_token)
+			else:
+				SimpleBot.handleTextMessage(new_message)
+		MongoDB.insertNewReceivedMessage(new_message, this_bot_token)
