@@ -92,7 +92,7 @@ class MongoDB:
 	#---------------------------------
 	# SENDED_MSGS_COLLECTION METHODS
 	#---------------------------------
-	def insertNewSendedProject(data_to_be_inserted):
+	def insertNewSendedProject(data):
 		data_to_be_inserted = {"timestamp" : datetime.now()}
 		data_to_be_inserted['message_sended'] = data
 		MongoDB.db[MongoDB.SENDED_MSGS_COLLECTION].insert_one(data_to_be_inserted)

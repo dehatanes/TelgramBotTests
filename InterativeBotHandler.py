@@ -39,7 +39,7 @@ class InterativeBot:
 			"todo"
 	
 	def handleTextMessage(message_info):
-		received_message = message_info.get("callback_query").get("message").get("text")
+		received_message = message_info.get("message").get("text")
 		if('/start' in received_message):
 			InterativeBot.greetNewUser(message_info)
 		else:
@@ -50,7 +50,6 @@ class InterativeBot:
 				   		'text': message}
 			# send the message
 			InterativeBot.send(endpoint, params)
-		
 
 	def greetNewUser(message_info):
 		user_id    = message_info.get("message").get("from").get("id")
