@@ -82,7 +82,7 @@ class AppHandler(Bottle):
 		# get the data
 		new_message = bottle_request.json
 		print()
-		print('RECEIVED MESSAGE IN CHATBOT 1')
+		print('RECEIVED MESSAGE IN CHATBOT 2')
 		print(new_message)
 		print()
 		# verify type of message
