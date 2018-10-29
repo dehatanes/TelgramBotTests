@@ -14,7 +14,7 @@ NEW_PL_MESSAGE_MODEL =  "PL {0}/{1}\n\n"        + \
 						"ID da PL na API de Dados Abertos: {8}"
 
 DONT_KNOW_WHAT_TO_SAY = "Olá! Você está inscrito no bot QUE LEIS ESTÃO ROLANDO.\n\n"          + \
-						"Infelizmente não consigo entender ainda mensagens que "              + \
+						"Eu não consigo entender ainda as mensagens que "                     + \
 						"os usuários digitam, mas para interagir comigo você "                + \
 						"pode usar os botões que aparecem embaixo das mensagens que envio!\n" + \
 						"Sempre fico muito feliz em poder ajudar! :)\n\n"                     + \

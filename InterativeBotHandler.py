@@ -70,7 +70,7 @@ class InterativeBot:
 		keyboard = {"inline_keyboard": [[
 						{ "text": "me mande um exemplo, por favor",
 						  "callback_data": Constants.CALLBACK_SHOW_PROP_EXAMPLE}]]}
-		params   = {'chat_id': chat_id,
+		params   = {'chat_id': user_id,
 				    'text': message,
 				    'reply_markup': json.dumps(keyboard)}
 		# send the message
