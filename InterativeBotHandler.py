@@ -14,9 +14,15 @@ class InterativeBot:
 	def sendProjectMessageToOneUser(chat_id, message):
 		# setup
 		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
-		keyboard = {"inline_keyboard": [[
-						{ "text": "quero ver a proposta",
-						  "callback_data": Constants.CALLBACK_SHOW_PROPOSITION}]]}
+		keyboard = {"inline_keyboard": [
+						[{ "text": "quero ver a proposta",
+						   "callback_data": Constants.CALLBACK_SHOW_PROPOSITION}],
+						[{ "text": "autores",
+						   "callback_data": Constants.CALLBACK_SHOW_AUTHORS},
+						 { "text": "palavras-chave",
+						   "callback_data": Constants.CALLBACK_SHOW_KEY_WORDS}],
+						[{ "text": "histórico de tramitação",
+						   "callback_data": Constants.CALLBACK_SHOW_HISTORY}]]}
 		params   = {'chat_id': chat_id,
 				    'text': message,
 				    'reply_markup': json.dumps(keyboard)}
