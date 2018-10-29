@@ -157,7 +157,7 @@ class InterativeBot:
 	# AUXILIARES
 	# -------------
 	def getProjectIdFromMessage(message):
-		return eval(message_text.split('ID da PL na API de Dados Abertos: ')[-1])
+		return eval(message.split('ID da PL na API de Dados Abertos: ')[-1])
 
 	def send(endpoint, params):
 		# save to mongo
