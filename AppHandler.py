@@ -36,7 +36,7 @@ class AppHandler(Bottle):
 		# TODO() -> check if needs to send the message
 		# ------------------------------------------------
 		# get a new PL from the Dados Abertos API and turn it to a message
-		newPL = ApiDadosAbertos.showMeSomeNews() # <- Already saves the PL in our database
+		newPL = MongoDB.returnUsedPL() # <- Already saves the PL in our database
 		message = MessageModels.NEW_PL_MESSAGE_MODEL.format(newPL.get('numero'),
 															newPL.get('ano'),
 															newPL.get('ementa'),

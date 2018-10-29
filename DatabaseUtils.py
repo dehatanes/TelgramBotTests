@@ -75,8 +75,10 @@ class MongoDB:
 			return False
 		return True
 
-	def returnUsedPL(pl_id):
-		search_query  = {'pl_id':pl_id}
+	def returnUsedPL(pl_id = None):
+		search_query = {}
+		if(pl_id):
+			search_query  = {'pl_id':pl_id}
 		search_result = MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query)
 		return dumps(search_result)
 

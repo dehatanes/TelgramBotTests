@@ -36,7 +36,17 @@ class InterativeBot:
 		if(callback_type == Constants.CALLBACK_SHOW_PROPOSITION):
 			InterativeBot.show_url(chat_id, message_id, message_content)
 		elif(callback_type == Constants.CALLBACK_SHOW_PROP_EXAMPLE):
-			"todo"
+			newPL = ApiDadosAbertos.showMeSomeNews() # <- Already saves the PL in our database
+			message = MessageModels.NEW_PL_MESSAGE_MODEL.format(newPL.get('numero'),
+																newPL.get('ano'),
+																newPL.get('ementa'),
+																newPL.get('statusProposicao').get('despacho'),
+																newPL.get('statusProposicao').get('descricaoTramitacao'),
+																newPL.get('statusProposicao').get('descricaoSituacao'),
+																newPL.get('justificativa'),
+																newPL.get('statusProposicao').get('dataHora'),
+																newPL.get('id'))
+			InterativeBot.sendProjectMessageToOneUser(chat_id, message)
 	
 	def handleTextMessage(message_info):
 		received_message = message_info.get("message").get("text")
@@ -46,7 +56,7 @@ class InterativeBot:
 			# setup
 			endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
 			message_to_send = MessageModels.DONT_KNOW_WHAT_TO_SAY
-			params   = {'chat_id': chat_id,
+			params   = {'chat_id': message_info.get("message").get("from").get("id"),
 				   		'text': message}
 			# send the message
 			InterativeBot.send(endpoint, params)
