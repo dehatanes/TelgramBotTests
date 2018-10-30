@@ -83,6 +83,7 @@ class SimpleBot:
 		# setup
 		endpoint = SimpleBot.base_api + Constants.EDIT_MESSAGE_ENDPOINT
 		if(url):
+			url = "https://docs.google.com/viewer?url=" + url # para abrir o pdf no drive e a pessoa nao precisar baixar
 			keyboard = {"inline_keyboard": [[
 	                        { "text": "CLIQUE: link para proposta na íntegra",
 	                          "url":url}]]}
