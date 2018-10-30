@@ -45,7 +45,7 @@ class MongoDB:
 
 	def getAlluserIds():
 		print("GETTING ALL THE USERS")
-		users_list = eval(dumps(MongoDB.db[MongoDB.USERS_COLLECTION].find()))
+		users_list = eval(dumps(MongoDB.db[MongoDB.USERS_COLLECTION].find()).replace('null','None'))
 		response = dict()
 		for user in users_list:
 			user_bot_token = user.get('interacting_with_bot')
