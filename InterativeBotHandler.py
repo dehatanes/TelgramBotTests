@@ -146,8 +146,7 @@ class InterativeBot:
 																keywords.get('ano'),
 																keywords.get('keywords'))
 		else:
-			message = MessageModels.PL_KEYWORDS_ERROR_MESSAGE.format( keywords.get('numero'),
-																	  keywords.get('ano'))
+			message = MessageModels.PL_KEYWORDS_ERROR_MESSAGE
 		# setup
 		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
 		params   = {'chat_id': chat_id,
