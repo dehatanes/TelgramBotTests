@@ -49,9 +49,9 @@ class InterativeBot:
 			InterativeBot.send_keywords(chat_id, message_id, message_text)
 		elif(callback_type == Constants.CALLBACK_SHOW_HISTORY):
 			InterativeBot.send_project_history(chat_id, message_id, message_text)
-		elif(callback_type == Constants.CALLBACK_SHOW_HISTORY):
-			InterativeBot.send_despacho(chat_id, message_id, message_text)
 		elif(callback_type == Constants.CALLBACK_DESPACHO):
+			InterativeBot.send_despacho(chat_id, message_id, message_text)
+		elif(callback_type == Constants.CALLBACK_SHOW_PROP_EXAMPLE):
 			newPL = MongoDB.returnUsedPL()
 			message = MessageModels.NEW_PL_MESSAGE_MODEL.format(newPL.get('numero'),
 																newPL.get('ano'),

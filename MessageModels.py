@@ -11,7 +11,7 @@ SIMPLE_BOT_GREETING_MESSAGE = "Olá, {0}, bem vindo ao parque do dinossauros.\n"
 							  "Temos que formular isso aqui."
 
 NEW_PL_MESSAGE_MODEL =  "PL {0}/{1}\n\n"        + \
-						"EMENTA: {2}\n\n"       + \
+						"EMENTA: {2}\n"       + \
 						"Tramitação: {4}\n"     + \
 						"Situação: {5}\n"       + \
 						"Justificativa: {6}\n"  + \
