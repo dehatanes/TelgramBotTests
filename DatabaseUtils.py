@@ -94,7 +94,6 @@ class MongoDB:
 			return None
 
 	def getKeywordsFromPL(pl_id):
-		TODO()
 		try:
 			search_query  = {'pl_id':pl_id}
 			fields_filter = {"keywords":1,'numero':1,'ano':1,'_id':0}
