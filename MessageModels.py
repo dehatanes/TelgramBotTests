@@ -12,7 +12,6 @@ SIMPLE_BOT_GREETING_MESSAGE = "Olá, {0}, bem vindo ao parque do dinossauros.\n"
 
 NEW_PL_MESSAGE_MODEL =  "PL {0}/{1}\n\n"        + \
 						"EMENTA: {2}\n\n"       + \
-						"DESPACHO: {3}\n\n"     + \
 						"Tramitação: {4}\n"     + \
 						"Situação: {5}\n"       + \
 						"Justificativa: {6}\n"  + \
@@ -22,7 +21,15 @@ NEW_PL_MESSAGE_MODEL =  "PL {0}/{1}\n\n"        + \
 PL_KEYWORDS_MESSAGE = "PL {0}/{1}\n\n"  + \
 					  "PALAVRAS CHAVE: {2}"
 
-PL_KEYWORDS_ERROR_MESSAGE  = "\nNÃO FORAM *ADICIONADAS* PALAVRAS CHAVE NESSE PROJETO.\n"
+PL_KEYWORDS_ERROR_MESSAGE  = "NÃO FOI ADICIONADO DESPACHO A ESSE PROJETO\n\n" + \
+							 "Nem todos os projetos possuem palavras chave :(\n" + \
+							 "Tente com outros projetos :)"							 
+
+PL_DESPACHO_MESSAGE = "PL {0}/{1}\n\n"  + \
+					  "DESPACHO: {2}"
+
+PL_DESPACHO_ERROR_MESSAGE  = "NÃO FORAM FORNECIDAS PALAVRAS CHAVE PARA ESSE PROJETO\n\n" + \
+							 "Tente novamente mais tarde ou com outros projetos :)"
 
 DONT_KNOW_WHAT_TO_SAY = "Olá! Você está inscrito no chatbot QUE LEIS ESTÃO ROLANDO.\n\n"      + \
 						"Eu não consigo entender ainda as mensagens que "                     + \

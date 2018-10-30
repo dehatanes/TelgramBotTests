@@ -21,8 +21,10 @@ class InterativeBot:
 						   "callback_data": Constants.CALLBACK_SHOW_AUTHORS},
 						 { "text": "palavras-chave",
 						   "callback_data": Constants.CALLBACK_SHOW_KEY_WORDS}],
-						[{ "text": "histórico de tramitação",
-						   "callback_data": Constants.CALLBACK_SHOW_HISTORY}]]}
+						[{ "text": "histórico",
+						   "callback_data": Constants.CALLBACK_SHOW_HISTORY},
+						   { "text": "despacho",
+						   "callback_data": Constants.CALLBACK_DESPACHO}]]}
 		params   = {'chat_id': chat_id,
 				    'text': message,
 				    'reply_markup': json.dumps(keyboard)}
@@ -47,7 +49,9 @@ class InterativeBot:
 			InterativeBot.send_keywords(chat_id, message_id, message_text)
 		elif(callback_type == Constants.CALLBACK_SHOW_HISTORY):
 			InterativeBot.send_project_history(chat_id, message_id, message_text)
-		elif(callback_type == Constants.CALLBACK_SHOW_PROP_EXAMPLE):
+		elif(callback_type == Constants.CALLBACK_SHOW_HISTORY):
+			InterativeBot.send_despacho(chat_id, message_id, message_text)
+		elif(callback_type == Constants.CALLBACK_DESPACHO):
 			newPL = MongoDB.returnUsedPL()
 			message = MessageModels.NEW_PL_MESSAGE_MODEL.format(newPL.get('numero'),
 																newPL.get('ano'),
@@ -100,26 +104,30 @@ class InterativeBot:
 		if(url):
 			url = "https://docs.google.com/viewer?url=" + url # para abrir o pdf no drive e a pessoa nao precisar baixar
 			keyboard = {"inline_keyboard": [
-							[{ "text": "CLIQUE: link para proposta na íntegra",
-							   "url":url}],
-							[{ "text": "autores",
-							   "callback_data": Constants.CALLBACK_SHOW_AUTHORS},
-							 { "text": "palavras-chave",
-							   "callback_data": Constants.CALLBACK_SHOW_KEY_WORDS}],
-							[{ "text": "histórico de tramitação",
-							   "callback_data": Constants.CALLBACK_SHOW_HISTORY}]]}
+						[{ "text": "CLIQUE: link para proposta na íntegra",
+							"url":url}],
+						[{ "text": "autores",
+						   "callback_data": Constants.CALLBACK_SHOW_AUTHORS},
+						 { "text": "palavras-chave",
+						   "callback_data": Constants.CALLBACK_SHOW_KEY_WORDS}],
+						[{ "text": "histórico",
+						   "callback_data": Constants.CALLBACK_SHOW_HISTORY},
+						   { "text": "despacho",
+						   "callback_data": Constants.CALLBACK_DESPACHO}]]}
 			params = {'chat_id': chat_id,
 	                  'message_id': message_id,
 	                  'text': message_text,
 	                  'reply_markup': json.dumps(keyboard)}
 		else:
 			keyboard = {"inline_keyboard": [
-							[{ "text": "autores",
-							   "callback_data": Constants.CALLBACK_SHOW_AUTHORS},
-							 { "text": "palavras-chave",
-							   "callback_data": Constants.CALLBACK_SHOW_KEY_WORDS}],
-							[{ "text": "histórico de tramitação",
-							   "callback_data": Constants.CALLBACK_SHOW_HISTORY}]]}
+						[{ "text": "autores",
+						   "callback_data": Constants.CALLBACK_SHOW_AUTHORS},
+						 { "text": "palavras-chave",
+						   "callback_data": Constants.CALLBACK_SHOW_KEY_WORDS}],
+						[{ "text": "histórico",
+						   "callback_data": Constants.CALLBACK_SHOW_HISTORY},
+						   { "text": "despacho",
+						   "callback_data": Constants.CALLBACK_DESPACHO}]]}
 			params = {'chat_id': chat_id,
 	                  'message_id': message_id,
 	                  'text': 'ESSA PL NÃO POSSUI LINK PARA PROPOSTA NA ÍNTEGRA \n\n' + message_text,
@@ -160,6 +168,25 @@ class InterativeBot:
 		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
 		params   = {'chat_id': chat_id,
 				    'text': "HISTORICO DO PROJETO AQUI",
+				    'reply_to_message_id': message_id}
+		# send the message
+		InterativeBot.send(endpoint, params)
+
+	def send_despacho(chat_id, message_id, message_text):
+		# get the PL url
+		pl_id = InterativeBot.getProjectIdFromMessage(message_text)
+		keywords = MongoDB.getDespachoFromPL(pl_id)
+		# building the message
+		if(keywords and keywords.get('statusProposicao').get('despacho')):
+			message = MessageModels.PL_DESPACHO_MESSAGE.format( keywords.get('numero'),
+																keywords.get('ano'),
+																keywords.get('statusProposicao').get('despacho'))
+		else:
+			message = MessageModels.PL_DESPACHO_ERROR_MESSAGE
+		# setup
+		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
+		params   = {'chat_id': chat_id,
+				    'text': message,
 				    'reply_to_message_id': message_id}
 		# send the message
 		InterativeBot.send(endpoint, params)

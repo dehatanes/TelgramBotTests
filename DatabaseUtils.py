@@ -102,6 +102,15 @@ class MongoDB:
 		except:
 			return None
 
+	def getDespachoFromPL(pl_id):
+		try:
+			search_query  = {'pl_id':pl_id}
+			fields_filter = {"statusProposicao.despacho":1,'numero':1,'ano':1,'_id':0}
+			search_result = dumps(MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query,fields_filter))
+			return eval(search_result.replace('null','None'))
+		except:
+			return None
+
 	#---------------------------------
 	# SENDED_MSGS_COLLECTION METHODS
 	#---------------------------------
