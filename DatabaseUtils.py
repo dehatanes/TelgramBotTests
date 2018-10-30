@@ -93,6 +93,16 @@ class MongoDB:
 		except:
 			return None
 
+	def getKeywordsFromPL(pl_id):
+		TODO()
+		try:
+			search_query  = {'pl_id':pl_id}
+			fields_filter = {"keywords":1,'numero':1,'ano':1,'_id':0}
+			search_result = dumps(MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query,fields_filter))
+			return eval(search_result.replace('null','None')).get("keywords")
+		except:
+			return None
+
 	#---------------------------------
 	# SENDED_MSGS_COLLECTION METHODS
 	#---------------------------------

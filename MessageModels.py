@@ -19,6 +19,12 @@ NEW_PL_MESSAGE_MODEL =  "PL {0}/{1}\n\n"        + \
 						"Data: {7}\n\n"         + \
 						"ID da PL na API de Dados Abertos: {8}"
 
+PL_KEYWORDS_MESSAGE  =  "PL {0}/{1}\n\n"  + \
+						"PALAVRAS CHAVE: {2}"
+
+PL_KEYWORDS_ERROR_MESSAGE  = "PL {0}/{1}\n\n"  + \
+							 "Não foram adicionadas palavras chave nesse projeto."
+
 DONT_KNOW_WHAT_TO_SAY = "Olá! Você está inscrito no chatbot QUE LEIS ESTÃO ROLANDO.\n\n"      + \
 						"Eu não consigo entender ainda as mensagens que "                     + \
 						"os usuários digitam, mas para interagir comigo você "                + \

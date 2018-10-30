@@ -137,10 +137,21 @@ class InterativeBot:
 		InterativeBot.send(endpoint, params)
 
 	def send_keywords(chat_id, message_id, message_text):
+		# get the PL url
+		pl_id = InterativeBot.getProjectIdFromMessage(message_text)
+		keywords = MongoDB.getKeywordsFromPL(pl_id)
+		# building the message
+		if(keywords and keywords.get('keywords')):
+			message = MessageModels.PL_KEYWORDS_MESSAGE.format( keywords.get('numero'),
+																keywords.get('ano'),
+																keywords.get('keywords'))
+		else:
+			message = MessageModels.PL_KEYWORDS_ERROR_MESSAGE.format( keywords.get('numero'),
+																	  keywords.get('ano'))
 		# setup
 		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
 		params   = {'chat_id': chat_id,
-				    'text': "PALAVRAS CHAVE DO PROJETO AQUI",
+				    'text': message,
 				    'reply_to_message_id': message_id}
 		# send the message
 		InterativeBot.send(endpoint, params)
