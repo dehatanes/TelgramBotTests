@@ -26,3 +26,13 @@ class ApiDadosAbertos:
 					if(full_pl_infos and MongoDB.insertNewUsedPL(full_pl_infos) == 'success'):
 						return full_pl_infos
 
+	def getTramitacoes(pl_id):
+		try:
+			# settings to make the request
+			get_url = Constants.DADOS_ABERTOS_BASE_API + Constants.PROPOSICOES_TRAMITACOES_ENDPOINT.format(pl_id)
+			headers = {'accept':'application/json'}
+			# get and filter the data
+			pl_history = requests.get(get_url, headers=headers).json().get('dados')
+			return pl_history[:-5] 
+		except:
+			return []

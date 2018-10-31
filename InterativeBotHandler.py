@@ -1,4 +1,5 @@
 from DatabaseUtils import MongoDB
+from ApiDadosAbertosSrcScripts import ApiDadosAbertos
 import MessageModels
 import Constants
 import requests
@@ -166,10 +167,22 @@ class InterativeBot:
 		InterativeBot.send(endpoint, params)
 
 	def send_project_history(chat_id, message_id, message_text):
+		# prepare message
+		pl_id = InterativeBot.getProjectIdFromMessage(message_text)
+		pl_history = ApiDadosAbertos.getTramitacoes(pl_id)
+		if(pl_history):
+			message = ''
+			for hist in pl_history[-5:]:
+				stri += '{0} - {1} {2}\n{3}\n\n'.format(hist.get('dataHora'),
+			                                      		  hist.get('descricaoTramitacao'),
+			                                   			  '- ' + hist.get('descricaoSituacao') if hist.get('descricaoSituacao') else '',
+			                                   			  hist.get('despacho'))
+		else:
+			message = MessageModels.PL_HISTORY_ERROR_MESSAGE
 		# setup
 		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
 		params   = {'chat_id': chat_id,
-				    'text': "HISTORICO DO PROJETO AQUI",
+				    'text': message,
 				    'reply_to_message_id': message_id}
 		# send the message
 		InterativeBot.send(endpoint, params)

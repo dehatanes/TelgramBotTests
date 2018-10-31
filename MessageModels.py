@@ -42,6 +42,9 @@ PL_DESPACHO_MESSAGE = "PL {0}/{1}\n\n"  + \
 PL_DESPACHO_ERROR_MESSAGE  = "NÃO FORAM FORNECIDAS PALAVRAS CHAVE PARA ESSE PROJETO\n\n" + \
 							 "Tente novamente mais tarde ou com outros projetos :)"
 
+PL_HISTORY_ERROR_MESSAGE   = "NÃO CONSEGUI ENCONTRAR O HISTÓRICO DESSE PROJETO\n\n" + \
+							 "Tente novamente mais tarde ou com outros projetos :)"
+
 DONT_KNOW_WHAT_TO_SAY = "Olá! Você está inscrito no chatbot QUE LEIS ESTÃO ROLANDO.\n\n"      + \
 						"Eu não consigo entender ainda as mensagens que "                     + \
 						"os usuários digitam, mas para interagir comigo você "                + \

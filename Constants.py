@@ -20,7 +20,8 @@ BOT2_BASE_API = TELEGRAM_BASE_API.format(BOT2_TOKEN)
 
 # Dados abertos API endpoints
 DADOS_ABERTOS_BASE_API = 'https://dadosabertos.camara.leg.br/api/v2/'
-PROPOSICOES_ENDPOINT = 'proposicoes'
+PROPOSICOES_ENDPOINT             = 'proposicoes'
+PROPOSICOES_TRAMITACOES_ENDPOINT = 'proposicoes/{0}/tramitacoes' # {0} = proposition id
 
 # BUTTONS CALLBACK DATA
 CALLBACK_SHOW_PROPOSITION  = "CALLBACK_SHOW_PROPOSITION"
