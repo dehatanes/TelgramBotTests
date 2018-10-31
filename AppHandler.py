@@ -58,6 +58,7 @@ class AppHandler(Bottle):
 			return json.dumps(data)
 		else:
 			print("\nkeep alive\n")
+			return json.dumps({'status':'alive'})
 
 	def handle_chatbot1_updates(self):
 		this_bot_token = Constants.BOT1_TOKEN

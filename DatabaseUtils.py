@@ -130,7 +130,7 @@ class MongoDB:
 	def insertNewReceivedMessage(data, bot_id):
 		data_to_be_inserted = {"bot_id" : bot_id, "timestamp" : datetime.now()}
 		data_to_be_inserted['message_received'] = data
-		MongoDB.dbc.insert_one(data_to_be_inserted)
+		MongoDB.db.insert_one(data_to_be_inserted)
 
 	#-------------------------------
 	# SCHEDULER_COLLECTION METHODS
