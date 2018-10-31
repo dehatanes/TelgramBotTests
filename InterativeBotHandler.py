@@ -153,7 +153,7 @@ class InterativeBot:
 			                                     author.get('tipo'))
 				if(author.get('uri')):
 					keyboard.append([{ "text": "Mais sobre " + author.get('nome'),
-						   			   "callback_data": Constants.CALLBACK_AUTHORS_INFO + "_" + author.get('uri')}])
+						   			   "callback_data": Constants.CALLBACK_AUTHORS_INFO + "_" + author.get('uri').split('/')[-1]}])
 		else:
 			message = MessageModels.PL_AUTHORS_ERROR_MESSAGE
 		# update params
