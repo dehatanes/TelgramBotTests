@@ -173,10 +173,10 @@ class InterativeBot:
 		if(pl_history):
 			message = ''
 			for hist in pl_history[-5:]:
-				stri += '{0} - {1} {2}\n{3}\n\n'.format(hist.get('dataHora'),
-			                                      		  hist.get('descricaoTramitacao'),
-			                                   			  '- ' + hist.get('descricaoSituacao') if hist.get('descricaoSituacao') else '',
-			                                   			  hist.get('despacho'))
+				message += '{0} - {1} {2}\n{3}\n\n'.format(hist.get('dataHora'),
+			                                      		   hist.get('descricaoTramitacao'),
+			                                   			   '- ' + hist.get('descricaoSituacao') if hist.get('descricaoSituacao') else '',
+			                                   			   hist.get('despacho'))
 		else:
 			message = MessageModels.PL_HISTORY_ERROR_MESSAGE
 		# setup
