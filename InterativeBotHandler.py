@@ -155,7 +155,7 @@ class InterativeBot:
 					keyboard.append([{ "text": "Mais sobre " + author.get('nome'),
 						   			   "callback_data": Constants.CALLBACK_AUTHORS_INFO + " " + author.get('uri')}])
 		else:
-			message = MessageModels.PL_KEYWORDS_ERROR_MESSAGE
+			message = MessageModels.PL_AUTHORS_ERROR_MESSAGE
 		# update params
 		if keyboard:
 			params['reply_markup'] = json.dumps(keyboard)
