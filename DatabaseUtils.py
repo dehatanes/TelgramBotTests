@@ -140,7 +140,7 @@ class MongoDB:
 		sched_obj = eval(dumps(MongoDB.db[MongoDB.SCHEDULER_COLLECTION].find(query)))
 		if(sched_obj):
 			query_to_insert = {'sched_number': sched_obj[0].get('sched_number')}
-			nex_sched = datetime.fromtimestamp(item[0].get('time_sched').get('$date') / 1e3) + timedelta(days=1)
+			nex_sched = datetime.fromtimestamp(sched_obj[0].get('time_sched').get('$date') / 1e3) + timedelta(days=1)
 			MongoDB.db[MongoDB.SCHEDULER_COLLECTION].update(query_to_insert, {'$set': {'time_sched':nex_sched}})
 			return True
 		return False
