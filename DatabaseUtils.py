@@ -1,6 +1,6 @@
 from urllib.parse import urlparse
 from bson.json_util import dumps
-from datetime import datetime
+from datetime import datetime, timedelta
 import Constants
 import pymongo
 
@@ -130,4 +130,17 @@ class MongoDB:
 	def insertNewReceivedMessage(data, bot_id):
 		data_to_be_inserted = {"bot_id" : bot_id, "timestamp" : datetime.now()}
 		data_to_be_inserted['message_received'] = data
-		MongoDB.db[MongoDB.RECEIVED_MSGS_COLLECTION].insert_one(data_to_be_inserted)
+		MongoDB.dbc.insert_one(data_to_be_inserted)
+
+	#-------------------------------
+	# SCHEDULER_COLLECTION METHODS
+	#-------------------------------
+	def verifyIfTimeToSendMessage():
+		query = {"time_sched": {"$lt": datetime.now()}}
+		sched_obj = eval(dumps(MongoDB.db[MongoDB.SCHEDULER_COLLECTION].find(query)))
+		if(sched_obj):
+			query_to_insert = {'sched_number': sched_obj[0].get('sched_number')}
+			nex_sched = datetime.fromtimestamp(item[0].get('time_sched').get('$date') / 1e3) + timedelta(days=1)
+			MongoDB.db[MongoDB.SCHEDULER_COLLECTION].update(query_to_insert, {'$set': {'time_sched':nex_sched}})
+			return True
+		return False

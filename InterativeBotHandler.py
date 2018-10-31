@@ -52,6 +52,8 @@ class InterativeBot:
 			InterativeBot.send_project_history(chat_id, message_id, message_text)
 		elif(callback_type == Constants.CALLBACK_DESPACHO):
 			InterativeBot.send_despacho(chat_id, message_id, message_text)
+		elif(Constants.CALLBACK_AUTHORS_INFO in callback_type):
+			InterativeBot.send_authors_info(chat_id, message_id, message_text)
 		elif(callback_type == Constants.CALLBACK_SHOW_PROP_EXAMPLE):
 			newPL = MongoDB.returnUsedPL()
 			message = MessageModels.NEW_PL_MESSAGE_MODEL.format(newPL.get('numero'),
@@ -149,11 +151,12 @@ class InterativeBot:
 		if(pl_authors):
 			message = ''
 			for author in pl_authors:
-				message += '{0}\n{1}\n\n'.format(author.get('nome'),
+				message += '{0} - {1}\n\n'.format(author.get('nome'),
 			                                     author.get('tipo'))
-				if(author.get('uri')):
-					keyboard.append([{ "text": "Mais sobre " + author.get('nome'),
-						   			   "callback_data": Constants.CALLBACK_AUTHORS_INFO + "_" + author.get('uri').split('/')[-1]}])
+				# todo() -> descomentar quando o botao for implementado
+#				if(author.get('uri')):
+#					keyboard.append([{ "text": "Mais sobre " + author.get('nome'),
+#						   			   "callback_data": Constants.CALLBACK_AUTHORS_INFO + " " + author.get('uri').split('/')[-1]}])
 		else:
 			message = MessageModels.PL_AUTHORS_ERROR_MESSAGE
 		# update params
@@ -162,6 +165,10 @@ class InterativeBot:
 		params['text'] = message
 		# send the message
 		InterativeBot.send(endpoint, params)
+
+	def send_authors_info(chat_id, message_id, message_text):
+		# todo()
+		pass
 
 	def send_keywords(chat_id, message_id, message_text):
 		# get the PL url

@@ -33,29 +33,31 @@ class AppHandler(Bottle):
 
 	# METHODS
 	def scheduled_script(self):
-		# TODO() -> check if needs to send the message
-		# ------------------------------------------------
-		# get a new PL from the Dados Abertos API and turn it to a message
-		newPL = ApiDadosAbertos.showMeSomeNews()  # <- Already saves the PL in our database
-		message = MessageModels.NEW_PL_MESSAGE_MODEL.format(newPL.get('numero'),
-															newPL.get('ano'),
-															newPL.get('ementa'),
-															newPL.get('statusProposicao').get('despacho'),
-															newPL.get('statusProposicao').get('descricaoTramitacao'),
-															newPL.get('statusProposicao').get('descricaoSituacao'),
-															newPL.get('justificativa'),
-															newPL.get('statusProposicao').get('dataHora'),
-															newPL.get('id'))
-		# get all users from Mongo
-		users = MongoDB.getAlluserIds()
-		# send message
-		InterativeBot.sendMessageToMultipleUsers(users.get(Constants.BOT1_TOKEN), message)
-		SimpleBot.sendMessageToMultipleUsers(users.get(Constants.BOT2_TOKEN), message)
-		# save in Mongo the sended message (and users involved)
-		data = {'message':message, 'sended_to':users}
-		MongoDB.insertNewSendedProject(data)
-		# response
-		return json.dumps(data)
+		if(MongoDB.verifyIfTimeToSendMessage()):
+			# ------------------------------------------------
+			# get a new PL from the Dados Abertos API and turn it to a message
+			newPL = ApiDadosAbertos.showMeSomeNews()  # <- Already saves the PL in our database
+			message = MessageModels.NEW_PL_MESSAGE_MODEL.format(newPL.get('numero'),
+																newPL.get('ano'),
+																newPL.get('ementa'),
+																newPL.get('statusProposicao').get('despacho'),
+																newPL.get('statusProposicao').get('descricaoTramitacao'),
+																newPL.get('statusProposicao').get('descricaoSituacao'),
+																newPL.get('justificativa'),
+																newPL.get('statusProposicao').get('dataHora'),
+																newPL.get('id'))
+			# get all users from Mongo
+			users = MongoDB.getAlluserIds()
+			# send message
+			InterativeBot.sendMessageToMultipleUsers(users.get(Constants.BOT1_TOKEN), message)
+			SimpleBot.sendMessageToMultipleUsers(users.get(Constants.BOT2_TOKEN), message)
+			# save in Mongo the sended message (and users involved)
+			data = {'message':message, 'sended_to':users}
+			MongoDB.insertNewSendedProject(data)
+			# response
+			return json.dumps(data)
+		else:
+			print("\nkeep alive\n")
 
 	def handle_chatbot1_updates(self):
 		this_bot_token = Constants.BOT1_TOKEN
