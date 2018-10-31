@@ -138,7 +138,6 @@ class InterativeBot:
 		InterativeBot.send(endpoint, params)
 
 	def send_project_authors(chat_id, message_id, message_text):
-		print('start')
 		# setup
 		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
 		params   = {'chat_id': chat_id,
@@ -146,7 +145,6 @@ class InterativeBot:
 		# get the data
 		pl_id = InterativeBot.getProjectIdFromMessage(message_text)
 		pl_authors = ApiDadosAbertos.getAuthors(pl_id)
-		print(pl_authors)
 		keyboard = [] # aqui vamos adicionar botoes para os deputados, se houverem
 		if(pl_authors):
 			message = ''
@@ -155,7 +153,7 @@ class InterativeBot:
 			                                     author.get('tipo'))
 				if(author.get('uri')):
 					keyboard.append([{ "text": "Mais sobre " + author.get('nome'),
-						   			   "callback_data": Constants.CALLBACK_AUTHORS_INFO + " " + author.get('uri')}])
+						   			   "callback_data": Constants.CALLBACK_AUTHORS_INFO + "_" + author.get('uri')}])
 		else:
 			message = MessageModels.PL_AUTHORS_ERROR_MESSAGE
 		# update params
@@ -163,7 +161,6 @@ class InterativeBot:
 			params['reply_markup'] = json.dumps(keyboard)
 		params['text'] = message
 		# send the message
-		print('end')
 		InterativeBot.send(endpoint, params)
 
 	def send_keywords(chat_id, message_id, message_text):
