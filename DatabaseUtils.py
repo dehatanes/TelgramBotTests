@@ -45,7 +45,7 @@ class MongoDB:
 
 	def getAlluserIds():
 		print("GETTING ALL THE USERS")
-		users_list = eval(dumps(MongoDB.db[MongoDB.USERS_COLLECTION].find()))
+		users_list = eval(dumps(MongoDB.db[MongoDB.USERS_COLLECTION].find()).replace('null','None'))
 		response = dict()
 		for user in users_list:
 			user_bot_token = user.get('interacting_with_bot')
@@ -90,6 +90,24 @@ class MongoDB:
 			fields_filter = {"statusProposicao.url":1,'_id':0}
 			search_result = dumps(MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query,fields_filter))
 			return eval(search_result).get("statusProposicao").get("url")
+		except:
+			return None
+
+	def getKeywordsFromPL(pl_id):
+		try:
+			search_query  = {'pl_id':pl_id}
+			fields_filter = {"keywords":1,'numero':1,'ano':1,'_id':0}
+			search_result = dumps(MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query,fields_filter))
+			return eval(search_result.replace('null','None'))
+		except:
+			return None
+
+	def getDespachoFromPL(pl_id):
+		try:
+			search_query  = {'pl_id':pl_id}
+			fields_filter = {"statusProposicao.despacho":1,'numero':1,'ano':1,'_id':0}
+			search_result = dumps(MongoDB.db[MongoDB.USED_PLS_COLLECTION].find_one(search_query,fields_filter))
+			return eval(search_result.replace('null','None'))
 		except:
 			return None
 
