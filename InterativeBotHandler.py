@@ -83,9 +83,11 @@ class InterativeBot:
 		# setup
 		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
 		message = MessageModels.INTERATIVE_BOT_GREETING_MESSAGE.format(user_name)
-		keyboard = {"inline_keyboard": [[
-						{ "text": "me mande um exemplo, por favor",
-						  "callback_data": Constants.CALLBACK_SHOW_PROP_EXAMPLE}]]}
+		keyboard = {"inline_keyboard": [
+						[{ "text": "me mande um exemplo, por favor",
+						   "callback_data": Constants.CALLBACK_SHOW_PROP_EXAMPLE}],
+						[{ "text": "mais sobre a API de Dados Abertos",
+							"url":'https://dadosabertos.camara.leg.br/'}]]}
 		params   = {'chat_id': user_id,
 				    'text': message,
 				    'reply_markup': json.dumps(keyboard)}

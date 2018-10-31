@@ -1,25 +1,28 @@
-INTERATIVE_BOT_GREETING_MESSAGE = "Olá, cidadã(o), {0}!\n" + \
+INTERATIVE_BOT_GREETING_MESSAGE = "Olá, cidadã(o), {0}!\n\n" + \
 								  'Esse é o bot "QUE LEIS ESTÃO ROLANDO", criado para uma pesquisa dentro da Universidade de São Paulo.\n' + \
 								  "Por aqui vou enviar Projetos de Lei (famosas PL) que estão passando atualmente pela Câmara dos Deputados para te manter informado(a)!\n\n" + \
-								  "Você pode interagir comigo através dos botões presente abaixo de cada mensagem enviada.\n" + \
+								  "Você pode interagir comigo através dos botões presentes embaixo de cada mensagem enviada.\n" + \
 								  "Através deles posso:\n" + \
-								  "- Te disponibilizar o link para a proposta na íntegra\n" + \
+								  "- Disponibilizar o link para a proposta na íntegra\n" + \
 								  "- Enviar os autores responsáveis pela proposta\n" + \
 								  "- Enviar as palavras chave da proposta\n" + \
 								  "- O histórico de tramitações dela na câmara dos deputados\n" + \
 								  "- E o despacho (deliberação) da mesma\n\n" + \
-								  "É válido destacar que todos os prejos que envio eu pego diretamente da API de Dados Abertos da Câmara dos Deputados.\n" + \
-								  "Inclusive, no final de cada mensagem vou enviar também o id da proposta na API, assim, se houver interesse, você poderá se informar mais por lá além do que eu te passar por aqui :)\n\n" + \
+								  "É válido destacar que todos os projetos que envio eu pego diretamente da API de Dados Abertos da Câmara dos Deputados.\n" + \
+								  "Inclusive, no final de cada mensagem vou enviar também o id da proposta na API, assim, se houver interesse, você poderá procurar por mais informações lá :)\n\n" + \
 								  "Obrigado(a) por participar da pesquisa!"
 
-SIMPLE_BOT_GREETING_MESSAGE = "Olá, {0}, bem vindo ao parque do dinossauros.\n" + \
-							  "A ideia é que aqui eu fale um pouco sobre de onde a gente pega os dados e tal.\n" + \
-							  "Também fale o que você pode fazer com esse bot...\n" + \
-							  "Ah, e agradeço por participar da pesquisa.\n" + \
-							  "Temos que formular isso aqui."
+SIMPLE_BOT_GREETING_MESSAGE = "Olá, cidadã(o), {0}!\n\n" + \
+							  'Esse é o bot "QUE LEIS ESTÃO ROLANDO", criado para uma pesquisa dentro da Universidade de São Paulo.\n' + \
+							  "Por aqui vou enviar Projetos de Lei (famosas PL) que estão passando atualmente pela Câmara dos Deputados para te manter informado(a)!\n\n" + \
+							  "Você pode interagir comigo através do botão presente embaixo de cada mensagem enviada.\n" + \
+							  "Através dele posso disponibilizar o link da proposta na íntegra para você!\n\n" + \
+							  "É válido destacar que todos os projetos que envio eu pego diretamente da API de Dados Abertos da Câmara dos Deputados.\n" + \
+							  "Inclusive, no final de cada mensagem vou enviar também o id da proposta na API, assim, se houver interesse, você poderá procurar por mais informações lá :)\n\n" + \
+							  "Obrigado(a) por participar da pesquisa!"
 
 NEW_PL_MESSAGE_MODEL =  "PL {0}/{1}\n\n"        + \
-						"EMENTA: {2}\n"         + \
+						"EMENTA: {2}\n\n"       + \
 						"Tramitação: {4}\n"     + \
 						"Situação: {5}\n"       + \
 						"Justificativa: {6}\n"  + \
