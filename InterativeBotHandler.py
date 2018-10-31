@@ -144,7 +144,7 @@ class InterativeBot:
 				    'reply_to_message_id': message_id}
 		# get the data
 		pl_id = InterativeBot.getProjectIdFromMessage(message_text)
-		pl_authors = ApiDadosAbertos.getTramitacoes(pl_id)
+		pl_authors = ApiDadosAbertos.getAuthors(pl_id)
 		keyboard = [] # aqui vamos adicionar botoes para os deputados, se houverem
 		if(pl_authors):
 			message = ''
