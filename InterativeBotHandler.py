@@ -172,7 +172,7 @@ class InterativeBot:
 		pl_history = ApiDadosAbertos.getTramitacoes(pl_id)
 		if(pl_history):
 			message = ''
-			for hist in pl_history[-5:]:
+			for hist in reversed(pl_history[-5:]):
 				message += '{0} - {1} {2}\n{3}\n\n'.format(hist.get('dataHora'),
 			                                      		   hist.get('descricaoTramitacao'),
 			                                   			   '- ' + hist.get('descricaoSituacao') if hist.get('descricaoSituacao') else '',

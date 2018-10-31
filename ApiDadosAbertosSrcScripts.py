@@ -33,6 +33,6 @@ class ApiDadosAbertos:
 			headers = {'accept':'application/json'}
 			# get and filter the data
 			pl_history = requests.get(get_url, headers=headers).json().get('dados')
-			return pl_history[:-5] 
+			return pl_history 
 		except:
 			return []
