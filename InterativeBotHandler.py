@@ -152,8 +152,8 @@ class InterativeBot:
 				message += '{0}\n{1}\n\n'.format(author.get('nome'),
 			                                     author.get('tipo'))
 				if(author.get('uri')):
-					keyboard.add([{ "text": "Mais sobre " + author.get('nome'),
-						   			"callback_data": Constants.CALLBACK_AUTHORS_INFO + " " + author.get('uri')}])
+					keyboard.append([{ "text": "Mais sobre " + author.get('nome'),
+						   			   "callback_data": Constants.CALLBACK_AUTHORS_INFO + " " + author.get('uri')}])
 		else:
 			message = MessageModels.PL_KEYWORDS_ERROR_MESSAGE
 		# update params
