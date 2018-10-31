@@ -233,5 +233,5 @@ class InterativeBot:
 		MongoDB.insertNewSendedMessage(params, Constants.BOT1_TOKEN)
 		# request
 		resp = requests.get(endpoint, params)
-		print resp
+		print(resp)
 		return resp
