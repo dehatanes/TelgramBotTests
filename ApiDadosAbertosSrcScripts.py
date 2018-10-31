@@ -36,3 +36,14 @@ class ApiDadosAbertos:
 			return pl_history 
 		except:
 			return []
+
+	def getAuthors(pl_id):
+		try:
+			# settings to make the request
+			get_url = Constants.DADOS_ABERTOS_BASE_API + Constants.PROPOSICOES_AUTHORS_ENDPOINT.format(pl_id)
+			headers = {'accept':'application/json'}
+			# get and filter the data
+			pl_authors = requests.get(get_url, headers=headers).json().get('dados')
+			return pl_authors 
+		except:
+			return []

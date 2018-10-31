@@ -133,8 +133,7 @@ class InterativeBot:
 						   "callback_data": Constants.CALLBACK_DESPACHO}]]}
 			params = {'chat_id': chat_id,
 	                  'message_id': message_id,
-	                  'text': 'ESSA PL NÃO POSSUI LINK PARA PROPOSTA NA ÍNTEGRA \n\n' + message_text,
-	                  'reply_markup': json.dumps(keyboard)}
+	                  'text': 'ESSA PL NÃO POSSUI LINK PARA PROPOSTA NA ÍNTEGRA \n\n' + message_textc}
 		# request
 		InterativeBot.send(endpoint, params)
 
@@ -142,8 +141,25 @@ class InterativeBot:
 		# setup
 		endpoint = InterativeBot.base_api + Constants.SEND_MESSAGE_ENDPOINT
 		params   = {'chat_id': chat_id,
-				    'text': "AUTORES DO PROJETO AQUI",
 				    'reply_to_message_id': message_id}
+		# get the data
+		pl_id = InterativeBot.getProjectIdFromMessage(message_text)
+		pl_authors = ApiDadosAbertos.getTramitacoes(pl_id)
+		keyboard = [] # aqui vamos adicionar botoes para os deputados, se houverem
+		if(pl_authors):
+			message = ''
+			for author in pl_authors:
+				message += '{0}\n{1}\n\n'.format(author.get('nome'),
+			                                     author.get('tipo'))
+				if(author.get('uri')):
+					keyboard.add([{ "text": "Mais sobre " + author.get('nome'),
+						   			"callback_data": Constants.CALLBACK_AUTHORS_INFO + " " + author.get('uri')}])
+		else:
+			message = MessageModels.PL_KEYWORDS_ERROR_MESSAGE
+		# update params
+		if keyboard:
+			params['reply_markup'] = json.dumps(keyboard)
+		params['text'] = message
 		# send the message
 		InterativeBot.send(endpoint, params)
 
