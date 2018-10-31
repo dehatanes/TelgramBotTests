@@ -158,7 +158,7 @@ class InterativeBot:
 			message = MessageModels.PL_AUTHORS_ERROR_MESSAGE
 		# update params
 		if keyboard:
-			params['reply_markup'] = json.dumps(keyboard)
+			params['reply_markup'] = json.dumps({"inline_keyboard": keyboard})
 		params['text'] = message
 		# send the message
 		InterativeBot.send(endpoint, params)
@@ -233,5 +233,4 @@ class InterativeBot:
 		MongoDB.insertNewSendedMessage(params, Constants.BOT1_TOKEN)
 		# request
 		resp = requests.get(endpoint, params)
-		print(resp)
 		return resp
