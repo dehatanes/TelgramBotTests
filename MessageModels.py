@@ -32,14 +32,14 @@ NEW_PL_MESSAGE_MODEL =  "PL {0}/{1}\n\n"        + \
 PL_KEYWORDS_MESSAGE = "PL {0}/{1}\n\n"  + \
 					  "PALAVRAS CHAVE: {2}"
 
-PL_KEYWORDS_ERROR_MESSAGE  = "NÃO FOI ADICIONADO DESPACHO A ESSE PROJETO\n\n" + \
+PL_DESPACHO_ERROR_MESSAGE  = "NÃO FOI ADICIONADO DESPACHO A ESSE PROJETO\n\n" + \
 							 "Nem todos os projetos possuem palavras chave :(\n" + \
 							 "Tente com outros projetos :)"							 
 
 PL_DESPACHO_MESSAGE = "PL {0}/{1}\n\n"  + \
 					  "DESPACHO: {2}"
 
-PL_DESPACHO_ERROR_MESSAGE  = "NÃO FORAM FORNECIDAS PALAVRAS CHAVE PARA ESSE PROJETO\n\n" + \
+PL_KEYWORDS_ERROR_MESSAGE  = "NÃO FORAM FORNECIDAS PALAVRAS CHAVE PARA ESSE PROJETO\n\n" + \
 							 "Tente novamente mais tarde ou com outros projetos :)"
 
 PL_HISTORY_ERROR_MESSAGE   = "NÃO CONSEGUI ENCONTRAR O HISTÓRICO DESSE PROJETO\n\n" + \
